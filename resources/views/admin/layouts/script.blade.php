@@ -40,10 +40,12 @@
         <script src="admin_asset/assets/global/plugins/select2/js/select2.full.min.js" type="text/javascript"></script>
         <script src="admin_asset/assets/pages/scripts/components-select2.min.js" type="text/javascript"></script>
         <!-- END PAGE LEVEL PLUGINS -->
-  
+     <script src="admin_asset/assets/global/plugins/fancybox/source/jquery.fancybox.pack.js" type="text/javascript"></script>
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
         <script src="admin_asset/assets/pages/scripts/components-multi-select.min.js" type="text/javascript"></script>
         <!-- END PAGE LEVEL SCRIPTS -->
-
+        <script src="js/jquery.Jcrop.min.js" type="text/javascript"></script>
+        <script src="admin_asset/assets/global/scripts/jquery.validate.js" type="text/javascript"></script>
+          <script src="admin_asset/assets/global/scripts/jquery.Jcrop.min.js" type="text/javascript"></script>
            @yield('script')
         

@@ -81,11 +81,11 @@ public function postthemsua(Request $rs)
        $user->namsinh = $rs['namsinh'];
        $user->capdo = $rs->capdo;
        $user->gioitinh = $rs->gioitinh;
-         if($rs->hasFile('uphinh'))
+         if($rs->hasFile('image'))
          {
           
-          $file = $rs->file('uphinh');
-        $filename = $rs['name'].'.'.$file->getClientOriginalExtension('uphinh');
+          $file = $rs->file('image');
+        $filename = $rs['name'].'.'.$file->getClientOriginalExtension('image');
         $file->move('img/profile', $filename);
          $user->anh = $filename;
          }
@@ -109,11 +109,11 @@ public function postthemsua(Request $rs)
        $user->namsinh = $rs['namsinh'];
        $user->capdo = $rs->capdo;
        $user->gioitinh = $rs->gioitinh;
-        if($rs->hasFile('uphinh'))
+        if($rs->hasFile('image'))
          {
           
-           $file = $rs->file('uphinh');
-        $filename = $rs['name'].'.'.$file->getClientOriginalExtension('uphinh');
+           $file = $rs->file('image');
+        $filename = $rs['name'].'.'.$file->getClientOriginalExtension('image');
         $result = glob( 'img/profile/*');
         foreach ($result as $name) {
           echo $result->getFilename();

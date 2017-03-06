@@ -100,7 +100,7 @@
                <div class="pull-right">
               <div class = "btn btn-circle btn-icon-only btn-default" onclick="removeform()">
               <i class = "glyphicon glyphicon-plus"></i></div>
-                   <a id = 'hinh' class = "btn btn-circle btn-icon-only btn-default"><i class = "glyphicon glyphicon-picture"></i></a>
+                   <a id = 'picture' class = "btn btn-circle btn-icon-only btn-default"><i class = "glyphicon glyphicon-picture"></i></a>
                    </div>
                 <div class="caption">
                 <i class = icon-pencil></i> <span class="caption-subject bold uppercase">Chỉnh sửa thông tin sản phẩm</span>
@@ -115,7 +115,7 @@
                         <div class="alert alert-success" id='success'>{{session('thanhcong')}}<button class="close" data-close="alert"></button></div>
                         @endif
 <div class = "row">
-                <form action="admin/sanpham/postthemsuaxoa" method= "post" id="form_sample_2" class="form-horizontal" enctype="multipart/form-data">
+                <form action="admin/sanpham/postthemsuaxoa" method= "post" id="formsp" class="form-horizontal" enctype="multipart/form-data">
                <input type="hidden" name="_token" value="{!! csrf_token() !!}"/>
 
                     <div class="form-body">
@@ -135,25 +135,25 @@
                                     <i class="fa"></i>
                                     <input type="text" class="form-control" name="tensanpham" id="tensanpham"/> 
                                     </div>
-                                    <span id="errname" style="color:red"></span>
+                                    <span id="errname" style="color:blue"></span>
                             </div>
                         </div>
                                <div class="form-group  margin-top-20">
                             <label class="control-label col-md-4">Mã sản phẩm
-                            
+                             <span class="required"> * </span>
                             </label>
                             <div class="col-md-8">
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                     <input type="text" class="form-control" name="masanpham" id="masanpham"/> 
-                                     <span id="errmasp" style="color:red"></span>
+                                     <span id="errmasp" style="color:blue"></span>
                                     </div>
                                    
                             </div>
                         </div>
                              <div class="form-group margin-top-20">
                                        <label class="control-label col-md-4">Loại sản phẩm
-
+                                         <span class="required"> * </span>
                                        </label>
                             <div class="col-md-8">
                                         <select class="form-control select2" id="single" name="loaisanpham" style="width:70%;">
@@ -224,7 +224,7 @@
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-4">Parent
-                              
+                               <span class="required"> * </span>
                             </label>
                             <div class="col-md-8">
                          
@@ -254,7 +254,7 @@
                   <span class="btn default btn-file">
                       <span class="fileinput-new"> Select image </span>
                       <span class="fileinput-exists" > Change </span>
-                      <input type="file" name="uphinh" id="uphinh"> </span>
+                      <input type="file" name="image" id="image"> </span>
     
                   <a href="javascript:;" class="btn default fileinput-exists" data-dismiss="fileinput"> Remove </a>
               </div>
@@ -301,6 +301,43 @@
  
  @endsection
 @section('script')
+ <script>
+    $(document).ready(function(){
+    $('#formsp').validate({
+        rules: {
+          masanpham: {
+              required: true,
+              maxlength: 100,
+              minlength: 3
+          },
+          tensanpham: {
+             required: true,
+              maxlength: 100,
+              minlength: 5
+          },
+          giavon:{
+               required: true,
+              number: true
+          },
+           giaban:{
+             required: true,
+              number: true
+          },
+          soluong:{
+             required: true,
+            number: true
+          }
+        },
+        messages: {
+          // fullname: {
+          //   required: 'Bạn phải nhập tên đầy đủ',
+          //   maxlength: 'Tên không quá 100 kí tự',
+          //   minlength: 'Tên ít nhất 4 kí tự',
+          // },
+        }
+      })
+  });
+ </script>
 <script>
    // xem chi tiết:
 $(document).ready(function() {
@@ -325,8 +362,8 @@ $(document).ready(function() {
                    $('#img').attr('src', 'img/sanpham/anhdaidien/'+js1.AnhDaiDien);
             if(js1.AnhDaiDien== null || js1.AnhDaiDien == "")
                    $('#img').attr('src', 'img/cat.jpg');
-          $('#id').val(js1.id)
-          $('#hinh').attr('href', 'admin/sanpham/hinhanh/'+js1.id);
+            $('#id').val(js1.id)
+            $('#picture').attr('href', 'admin/sanpham/hinhanh/'+js1.id);
           
           // chạy về đầu trang:
       });
@@ -416,69 +453,5 @@ $(document).ready(function() {
  </script>
 
  {{-- validate form --}}
- <script>
-    $("#form_sample_2").validate({
-      rules: {
-      "tensanpham":{
-       minlength: 4, maxlength: 512, required: !0 
-      },
-      "masanpham": {
-        required: true,
-        maxlength: 20,
-        minlength: 4
-      },
-      giavon: {
-        customnumeric: true, required: !0 
-      },
-      giaban:{
-       customnumeric: true, required: !0 
-      }
-      soluong:{
-       minCost: true, maxCost: true, required: !0
-      }
-      ngaynhap:{
-      
-        required: true,
-      }
-      tinhtrang:{
-      
-        required: true,
-      }
-      },
-      messages: {
-        tensanpham:{
-          required: "thông tin bắt buộc",
-          maxlength: "tên sản phẩm nhiều nhất 100 kí tự",
-          minlength: "tên sản phẩm ít nhất 3 kí tự"
-        },
-         masanpham:{
-          required: "thông tin bắt buộc",
-          maxlength: "mã sản phẩm nhiều nhất 20 kí tự",
-          minlength: "mã sản phẩm ít nhất 4 kí tự"
-        },
-         soluong:{
-          required: "thông tin bắt buộc",
-          number: "Kiểu dữ liệu số"
 
-        },
-        giaban:{
-          required: "thông tin bắt buộc",
-          customnumeric: "giá bán lớn hơn 0"
-        },
-        giamua:{
-          required: "thông tin bắt buộc",
-          customnumeric: "giá mua lớn hơn 0"
-        },
-         tinhtrang:{
-          required: "thông tin bắt buộc",
-     
-        },
-            ngaynhap:{
-          required: "thông tin bắt buộc",
-     
-        }
-
-      }
-    });
-  </script>
 @endsection

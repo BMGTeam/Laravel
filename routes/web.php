@@ -13,14 +13,15 @@
 use App\sanpham;
 use App\loaisanpham;
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('testhihi', function () {
+    return view('admin.test');
 });
 Route::get('fc', 'usercontroller@getFile');
 
 Route::get('testform', function () {
     return view('admin.user.test');
 });
+
 Route::get('test', 'sanphamcontroller@test');
 
 Route::get('tenkhongdau/{ten}','sanphamcontroller@tenkhongdau');
@@ -41,6 +42,8 @@ Route::group(['prefix'=>'admin', 'middleware'=>'adminlogin'], function(){
 		Route::post('themhinh', 'sanphamcontroller@themhinh');
 		Route::get('xoanhieumuc', 'sanphamcontroller@xoanhieumuc');
 		Route::get('xoatatca', 'sanphamcontroller@xoatatca');
+		Route::get('xoahinh/{id}/{idImg}', 'sanphamcontroller@DeleteDetailImage');
+		Route::post('jcrop','sanphamcontroller@cropImage');
 	});
 		Route::group(['prefix'=>'loaisanpham'], function(){
 		Route::get('danhsach', 'loaisanphamcontroller@xuat');
@@ -63,6 +66,7 @@ Route::group(['prefix'=>'admin', 'middleware'=>'adminlogin'], function(){
 		Route::post('postthemsuaxoa', 'ctdhcontroller@postthemsuaxoa');
 		Route::get('chitietdonhang/{id}', 'ctdhcontroller@chitietdonhang');
 		Route::get('xoanhieumuc', 'donhangcontroller@xoanhieumuc');
+
 		Route::get('xoatatca', 'donhangcontroller@xoatatca');
 	});
 		Route::group(['prefix'=>'khachhang'], function(){

@@ -20,3 +20,6 @@
 	background-color: red !important;
 	box-shadow: 1px 1px 10px solic #ddd;
 }
+.error{
+	color: red;
+}

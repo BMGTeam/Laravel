@@ -92,6 +92,7 @@ class donhangcontroller extends Controller
        }
     }
   }
+}
 public function chitietdonhang($id)
     {
         $dh = donhang::find($id)->toJson();

@@ -3,6 +3,17 @@
  alert(ahihi);
 @endsection --}}
  @section('noidung')
+ <style>
+ .delete{
+  background:rgba(240,50,60,0.7);
+  position: relative;
+  z-index: 100;
+  text-align: center;
+  bottom: 60px;
+   overflow: hidden;
+color: white;
+ }  
+ </style>
  <div class="page-content-wrapper">
          
                 <div class="page-content">
@@ -20,28 +31,24 @@
         
           
              <!-- BEGIN FORM-->
+             {{-- begin notif --}}
                     @if(session('thongbao'))
                   <div class="alert alert-danger" id="fail">{{session('thongbao')}} <button class="close" data-close="alert"></button></div>
                 @endif
                       @if (session('thanhcong'))
                         <div class="alert alert-success" id='success'>{{session('thanhcong')}}<button class="close" data-close="alert"></button></div>
                         @endif
+                        {{-- end noti --}}Thêm
                   <form action="admin/sanpham/themhinh" method= "post" id="form_sample_2" class="form-horizontal" enctype="multipart/form-data">
                <input type="hidden" name="_token" value="{!! csrf_token() !!}"/>
                 <input type="hidden" name="id_sanpham" value="{{$id_sanpham}}" />
                         <div class="form-body">
-								<div class="form-group margin-top-20">
+								            <div class="form-group margin-top-20">
                             <div class="col-md-2 col-xs-3" style="text-align: center;">
                       		 		<label class="control-label uppercase"><b>sản phẩm:</b></label>
                               </div>
-                             <a href ="admin/sanpham/hinhanh/2"> <select>
-                               <a href ="admin/sanpham/hinhanh/2"> <option value="">hihi</option>
-                                </a>
-                              <option value="">kk</option>
-                                
-                              </select>
-                              </a>
-         					  		 <div class="col-md-5 col-xs-5">
+                    
+         					  		     <div class="col-md-5 col-xs-5">
          					  		
                        				 <select class="form-control select2" id="sanpham" name="sanpham" style="width:70%;">
                        				
@@ -52,38 +59,59 @@
                                   	</div>
                                    <div class="col-md-3 col-xs-3">
                                     <button type = 'button' class="btn green-haze btn-outline sbold uppercase" id="chitiet">chi tiết</button>
-                                   <button type = 'button' class="btn green-haze btn-outline sbold uppercase" id="themhinh">Thêm hình</button>
-                            <a href="admin/sanpham/danhsach"  class="btn green-haze btn-outline sbold uppercase" id="">Quay lại</a>
-                                  
-                                         
+                                    <a href="admin/sanpham/danhsach"  class="btn green-haze btn-outline sbold uppercase" id="">Quay lại</a>
                                      </div>
                                      </div>
 
-
-                      <div class="form-group" id="addform" style="margin: 0 40%; display: none;">
-                        <div class="fileinput fileinput-new" data-provides="fileinput">
-                            <div class="fileinput-new thumbnail" style="width:200px;height:150px">
-                                <img src="img/cat.jpg" id="img" alt="Chưa có hình" /> </div>
-                            <div class="fileinput-preview fileinput-exists thumbnail" style="width: 200px; height:150px;"> </div>
-                            <div>
-                                <span class="btn default btn-file">
-                                    <span class="fileinput-new"> Select image </span>
-                                    <span class="fileinput-exists" > Thay đổi </span>
-                                    <input type="file" name="uphinh" id="uphinh"> </span>
-                  
-                                <a href="javascript:;" class="btn default fileinput-exists" data-dismiss="fileinput"> Xóa</a>
-                                <input type="submit"  class="btn default  fileinput-exists" name="submit" id="submit" value="Thêm"> </span>
-                            </div>
-                        </div>
+        <div class="form-group" id="upload" style="margin-left: 30%;">
+          <div class="fileinput fileinput-new" data-provides="fileinput">
+               <div class="fileinput fileinput-new" data-provides="fileinput">
+              <div>
+                <div class="fileinput-preview fileinput-exists thumbnail" style="width: 200px; height:150px;"> </div>
+              <div>
+                  <span class="btn green-haze btn-outline sbold uppercase btn-file">
+                      <span class="fileinput-new"> Thêm hình </span>
+                      <span class="fileinput-exists" >Chọn lại</span>
+                      <input type="file" name="image" id="image">  </span>
+                     <input type="submit" class="btn green-haze btn-outline sbold uppercase fileinput-exists" name="them" id="them" value="Thêm">
+                  <a href="javascript:;" class="btn green-haze btn-outline sbold uppercase fileinput-exists" data-dismiss="fileinput"> Xóa </a>
+              </div>
+          </div>
+        </div>
+        </div>
         </div>
          <div class="row"> 
 
 	         @foreach($hinh as $value)
-                  <div class="col-md-3" style= "margin-top:20px"><img class= "img-rounded" height="250px" src="img\sanpham\anh\{{$value->anh}}"> </div>
+
+                  <div class="col-md-3" style= "margin-top:20px">
+                    <div  ><a href="img\sanpham\anh\{{$value->anh}}" class="fancybox-button" data-rel="fancybox-button"><img id="img" class= "img-rounded img-responsive " width=100% src="img\sanpham\anh\{{$value->anh}}"></a>  
+                    <div class="delete"> <a  class= "btn" style="color:white" href="admin/sanpham/xoahinh/{{$id_sanpham}}/{{$value->id}}">delete</a></div>
+
+                   </div>
+                   </div>
+
           @endforeach
               </div>
 </div>
                </form>
+               {{-- form upload --}}    
+               <div id="image-box" class="image display-none" style="text-align:center;">
+                <img id="large-image" src="" style="max-width:100%;max-height:500px;display:inline-block;">
+            </div> 
+              {{--  <div id="popup_crop">
+                 <div class="form_crop">
+                   <img id="cropbox">
+                    <form>
+                      <input type="hidden" id="x" name="x" />
+                      <input type="hidden" id="y" name="y" />
+                      <input type="hidden" id="w" name="w" />
+                      <input type="hidden" id="h" name="h" />
+                      <input type="hidden" id="photo_url" name="photo_url" />
+                      <input type="button" value="Crop Image" id="crop_btn" onclick="crop_photo()" />
+                   </form>
+                 </div>
+               </div> --}}
                                   </div>
   </div>
   </div>
@@ -109,9 +137,58 @@
     });
   });
   </script>
-{{-- ajax --}}
      <script>
+     $(document).ready(function(){
+        $('#image').change(function () {
+          alert('ahihi');
+        // $('#load').show();
 
+    //     $('#upload').hide();
+    //     $.ajax({
+    //         type: 'POST',
+    //         url: 'admin/sanpham/themhinh',
+    //         data: formData,
+    //         cache: false,
+    //         contentType: false,
+    //         processData: false,
+    //         success: function (data) {
+    //             // $('#load').hide();
+    //             console.log("success");
+    //             if (data != 'false')
+    //                 console.log(data)
+    //             $("#large-image").attr('src', 'img/sanpham/anh/' + data).Jcrop({}, function () {
+    //   jcrop_api = this;
+    //   $('.modal-dialog').animate({width: ($('#large-image').width() + 50)});
+    //   });
+    //             $('.image').show();
+    //             if (data == 'false')
+    //                 $('#upload').show();
+    //             // $('.error').show();
+    //             jcrop_api.destroy()
+
+    //         },
+    //         error: function (data) {
+    //             // $('#load').hide();
+    //             console.log("error");
+    //             console.log(data);
+    //         }
+    //     });
+    // });
+
+    // $('#myModal').on('hidden.bs.modal', function () {
+    //     $('.error').hide();
+    //     $('.upload-container').show();
+    //     $('.image').hide();
+    //     $('#profile-image-upload').trigger("reset");
+    // })
+
+    // $('.close-button').on('click', function () {
+    //     $('.error').hide();
+    //     $('.upload-container').show();
+    //     $('.image').hide();
+    //     $('#profile-image-upload').trigger("reset");
+    // });
+     });
   </script>
  @endsection
 

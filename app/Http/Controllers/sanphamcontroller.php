@@ -27,25 +27,9 @@ class sanphamcontroller extends Controller
     {
       if($rs->has('submit'))
       {
+        
         if($rs['submit'] == "them")
         {
-         $this->validate($rs, [
-        'tensanpham' => 'unique:sanpham|max:100|min:3', 
-         'masanpham' => 'unique:sanpham|max:100|min:3', 
-          'giavon' => 'numeric', 
-           'giaban' => 'numeric',
-           'soluonghienco' => 'numeric',
-        ],
-        [
-        'tensanpham.unique'=>'Tên sản phẩm đã sử dụng',
-          'tensanpham.max'=>'Tên sản phẩm từ 3->100 kí tự',
-            'tensanpham.min'=>'Tên sản phẩm từ 3->100 kí tự',
-            'masanpham.unique'=>'Mã sản phẩm đã sử dụng',
-          'masanpham.max'=>'Mã sản phẩm từ 3->100 kí tự',
-          'giaban.numeric'=>'Giá bán phải là một số',
-          'giavon.numeric'=>'Giá mua phải là một số',
-          'soluonghienco.numeric'=>'Số lượng phải là một số',
-        ]);
         $sanpham= new sanpham();
        $sanpham->TenSanPham = $rs['tensanpham'];
        $sanpham->TenKhongDau = changeTitle($rs['tensanpham'],$strSymbol='-',$case=MB_CASE_LOWER);
@@ -56,10 +40,10 @@ class sanphamcontroller extends Controller
        $sanpham->GiaBan = $rs['giaban'];
        $sanpham->NgayNhap = $rs->ngaynhap;
        $sanpham->SoLuongHienCo= $rs->soluong;
-         if($rs->hasFile('uphinh'))
+         if($rs->hasFile('image'))
          {
            $err=array();
-           $file = $rs->file('uphinh');
+           $file = $rs->file('image');
           if($file->getMimeType()!= 'image/jpeg' && $file->getMimeType()!='image/png' && $file->getMimeType()!="image/jpg"&& $file->getMimeType()!="image/gif")
                  $err[] = "loidinhdang";
            
@@ -67,7 +51,7 @@ class sanphamcontroller extends Controller
                    $err[] = "loisize";
               if(empty($err))
                 {
-                $filename =  $filename =$sanpham->TenKhongDau.'.'.$file->getClientOriginalExtension('uphinh');
+                $filename =  $filename =$sanpham->TenKhongDau.'.'.$file->getClientOriginalExtension('image');
                 $file->move('img/sanpham/anhdaidien/', $filename);
                  $sanpham->AnhDaiDien = $filename;
                  }
@@ -78,24 +62,13 @@ class sanphamcontroller extends Controller
           else
             return redirect('admin/sanpham/danhsach?page='.$rs['page'])->with('thanhcong', 'Thêm thông tin thành công nhưng Hình ảnh không hợp lệ');
         }
+
+
       else if($rs['submit'] == "sua")
-      {
-      	  if($rs->has['id'])
-           {
-           $this->validate($rs, [
- 
-         'masanpham' => 'unique:sanpham|max:100|min:3', 
-          'giavon' => 'numeric', 
-           'giaban' => 'numeric',
-           'soluonghienco' => 'numeric',
-        ],
-        [
-            'masanpham.unique'=>'Tên sản phẩm đã sử dụng',
-          'masanpham.max'=>'Mã sản phẩm từ 3->100 kí tự',
-          'giaban.numeric'=>'Giá bán phải là một số',
-          'giavon.numeric'=>'Giá mua phải là một số',
-          'soluonghienco.numeric'=>'Số lượng phải là một số',
-        ]);
+      {     
+
+      	  if($rs->id)
+          {
        $sanpham= sanpham::find($rs->id);
      
       $sanpham->TenKhongDau = changeTitle($rs['tensanpham'],$strSymbol='-',$case=MB_CASE_LOWER);
@@ -106,10 +79,10 @@ class sanphamcontroller extends Controller
        $sanpham->GiaBan = $rs['giaban'];
        $sanpham->NgayNhap = $rs->ngaynhap;
        $sanpham->SoLuongHienCo= $rs->soluong;
-        if($rs->hasFile('uphinh'))
+        if($rs->hasFile('image'))
          {
           $err=array();
-           $file = $rs->file('uphinh');
+           $file = $rs->file('image');
          if($file->getMimeType()!= 'image/jpeg' && $file->getMimeType()!='image/png' && $file->getMimeType()!="image/jpg"&& $file->getMimeType()!="image/gif")
                  $err[] = "loidinhdang";
            
@@ -117,7 +90,7 @@ class sanphamcontroller extends Controller
                    $err[] = "loisize";
               if(empty($err))
               { 
-                  $filename =$sanpham->TenKhongDau.'.'.$file->getClientOriginalExtension('uphinh');
+                  $filename =$sanpham->TenKhongDau.'.'.$file->getClientOriginalExtension('image');
                    if(file_exists('img/sanpham/anhdaidien'.$filename))
                 {
                   File::delete('img/sanpham/anhdaidien'.$filename);
@@ -128,27 +101,27 @@ class sanphamcontroller extends Controller
                       }
 
       }
-        
        $sanpham->save();
         if(empty($err))
             return redirect('admin/sanpham/danhsach?page='.$rs['page'])->with('thanhcong', 'Sửa thành công');
           else
             return redirect('admin/sanpham/danhsach?page='.$rs['page'])->with('thanhcong', 'Sửa thông tin thành công nhưng Hình ảnh không hợp lệ');
-}
-else  return redirect('admin/sanpham/danhsach?page='.$rs['page'])->with('thongbao', 'Chưa chọn sản phẩm');
+       }
+        else  return redirect('admin/sanpham/danhsach?page='.$rs['page'])->with('thongbao', 'Chưa chọn sản phẩm');
  
 
       }
        else if($rs['submit'] ==  "xoa")
        {
-           if($rs->has['id'])
+           if($rs->id)
            {
          $sanpham= sanpham::destroy($rs->id);
           return redirect('admin/sanpham/danhsach?page='.$rs['page'])->with('thanhcong', 'Xóa thành công');
-       }
-     }
-     else 
+           }
+         else 
        return redirect('admin/sanpham/danhsach?page='.$rs['page'])->with('thongbao', 'Chưa chọn sản phẩm');
+     }
+   
  
     }
   }
@@ -190,29 +163,48 @@ public function themhinh(Request $rs)
 {
         
           $err=array();
-           $file = $rs->file('uphinh');
-            $filename = $file->getClientOriginalName('uphinh');
+           $file = $rs->file('image');
+            $filename = $file->getClientOriginalName('image');
          if($file->getMimeType()!= 'image/jpeg' && $file->getMimeType()!='image/png' && $file->getMimeType()!="image/jpg"&& $file->getMimeType()!="image/gif")
                  $err[] = "loidinhdang";
-              if( $file->getSize() > 8000000)
-              $err[] = "loisize";
+          if( $file->getSize() > 8000000)
+                $err[] = "loisize";
          if(file_exists('img/sanpham/anh/'.$filename))
               $err[] = "trunghinh";
       if(empty($err))
         {
-           
+           echo 'hihi';
           $file->move('img/sanpham/anh/', $filename);
           $sanpham_img = new sanpham_image();
          $sanpham_img->anh = $filename;
           $sanpham_img->id_sanpham = $rs['id_sanpham'];
-          echo $rs['id_sanpham'];
           $sanpham_img->save();
-           return redirect('admin/sanpham/hinhanh/'. $rs->id_sanpham)->with('thanhcong', 'Sửa thành công');
+        return view('admin.sanpham.jcrop',  ['image' => $filename]);
+          // echo '<script type="text/javascript">window.top.window.show_popup_crop("'.$photo_dest.'")</script>';
+          return $filename;
        } 
           else
             return redirect('admin/sanpham/hinhanh/'. $rs->id_sanpham)->with('thongbao', 'Hình ảnh không hợp lệ');
-       
   
+}
+public function cropImage(request $rs)
+{
+   $quality = 90;
+   echo $rs['image'];
+    $src  = $rs['image'];
+    $img  = imagecreatefromjpeg($src);
+    $dest = ImageCreateTrueColor($rs['w'],$rs['w']);
+    imagecopyresampled($dest, $img, 0, 0, $rs['x'],
+       $rs['y'],$rs['w'], $rs['h'],
+        $rs['w'], $rs['h']);
+    imagejpeg($dest, $src, $quality);
+    return "<img src='img/sanpham/anh/".$src."'>";
+}
+public function DeleteDetailImage($id, $idImg)
+{
+
+         $hinhanh= sanpham_image::destroy($idImg);
+          return redirect('admin/sanpham/hinhanh/'.$id)->with('thanhcong', 'Xóa thành công');
 }
 public function test()
 {

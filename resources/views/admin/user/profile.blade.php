@@ -1,5 +1,6 @@
 @extends('admin/layouts/hihi')
 @section('noidung')
+
 <!-- BEGIN CONTENT -->
 <div class="page-content-wrapper">
 <!-- BEGIN CONTENT BODY -->
@@ -50,7 +51,6 @@
                             <li id="tab3">
                                 <a href="#tab_1_3" data-toggle="tab">Change Password</a>
                             </li>
-                        
                         </ul>
                     </div>
                     <div class="portlet-body">
@@ -65,20 +65,20 @@
 
                         @endif
                             <div class="tab-pane active " id="tab_1_1">
-                                <form role="form" action="admin/user/editprofile" method="POST">
+                                <form role="form" action="admin/user/editprofile" method="POST" id="form_profile">
                                 <input type="hidden" name="_token" value="{!! csrf_token() !!}"/>
                                     <div class="form-group">
                                         <label class="control-label">Full Name</label>
-                                        <input type="text" placeholder="Hồ Thị Mỹ Thương" name="fullname" class="form-control" /> </div>
+                                        <input type="text" placeholder="Hồ Thị Mỹ Thương" name="fullname"  id="fullname"class="form-control" /> </div>
                                     <div class="form-group">
                                         <label class="control-label">Số điện thoại</label>
-                                        <input type="text" name='sdt' placeholder="016xxx" class="form-control" /></div>
+                                        <input type="text" name='sdt' id="sdt" placeholder="016xxx" class="form-control" /></div>
                                     <div class="form-group">
                                         <label class="control-label">Chức vụ </label>
-                                        <input type="text" name='chucvu' placeholder="Design, Web etc." class="form-control" /></div>
+                                        <input type="text" name='chucvu' id='cv' placeholder="Design, Web etc." class="form-control" /></div>
                                     <div class="form-group">
                                         <label class="control-label">Chi tiết</label>
-                                        <textarea class="form-control" rows="3" name='chitiet' placeholder="sở thích, mô tả..."></textarea>
+                                        <textarea class="form-control" rows="3" name='chitiet' id='ct' placeholder="sở thích, mô tả..."></textarea>
                                     </div>
                               
                                     <div class="margiv-top-10">
@@ -147,14 +147,14 @@
 
                         @endif
                             <div class="tab-pane" id="tab_1_3">
-                                <form action="admin/user/changepass" method="post">
+                                <form action="admin/user/changepass" method="post" id="form_changepass">
                                 <input type="hidden" name="_token" value="{!! csrf_token() !!}"/>
                                     <div class="form-group">
                                         <label class="control-label">Current Password</label>
                                         <input type="password" name="oldpass" class="form-control" /> </div>
                                     <div class="form-group">
                                         <label class="control-label">New Password</label>
-                                        <input type="password" name="newpass" class="form-control" /> </div>
+                                        <input type="password" name="newpass" id="newpass" class="form-control" /> </div>
                                     <div class="form-group">
                                         <label class="control-label">Re-type New Password</label>
                                         <input type="password"  name="acceptpass" class="form-control" /> </div>
@@ -184,10 +184,58 @@
 
 @endsection
 @section('script')
+{{-- validate form --}}
 <script >
    $(document).ready(function(){
+    $('#form_profile').validate({
+        rules: {
+          fullname: {
+              required: true,
+              maxlength: 100,
+              minlength: 5
+          },
+          sdt: {
+            required: true,
+            number: true
+          },
+          chucvu:{
+               maxlength: 100,
+              minlength: 3
+          },
+          chitiet:{
+              minlength: 5
+          },
+        },
+        messages: {
+          // fullname: {
+          //   required: 'Bạn phải nhập tên đầy đủ',
+          //   maxlength: 'Tên không quá 100 kí tự',
+          //   minlength: 'Tên ít nhất 4 kí tự',
+          // },
+        }
+      })
+ $('#form_changepass').validate({
+  rules: {
+           oldpass: {
+              required: true,
+          },
+          newpass: {
+            required: true,
+            maxlength: 100,
+            minlength: 4
+          },
+          acceptpass:{
+               maxlength: 100,
+              minlength: 3,
+              equalTo: "#newpass"
+          },
+        },
+          messages: {
 
-   }); 
+          }
+ });
+   });
+
 
 </script>
 @endsection

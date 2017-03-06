@@ -30,11 +30,10 @@
         <!-- END THEME GLOBAL STYLES -->
         <!-- BEGIN THEME LAYOUT STYLES -->
         <link href="{{asset('admin_asset/assets/layouts/layout4/css/layout.min.css')}}" rel="stylesheet" type="text/css" />
-        <link href="{{asset('admin_asset/assets/layouts/layout4/css/themes/default.min.css')}}" rel="stylesheet" type="text/css" id="style_color" />
-        <link href="{{asset('admin_asset/assets/layouts/layout4/css/custom.min.css')}}}}" rel="stylesheet" type="text/css" />
-         <link href="admin_asset/assets/pages/css/profile.min.css" rel="stylesheet" type="text/css" />
-        <link rel="stylesheet" href="{{asset('css\mystyle.css')}}">
-
+        <link href="{{asset('admin_asset/assets/layouts/layout4/css/themes/default.min.css')}}" rel="stylesheet" type="text/css" id="style_color"/>
+        <link href="{{asset('admin_asset/assets/layouts/layout4/css/custom.min.css')}}" rel="stylesheet" type="text/css" />
+        <link href="admin_asset/assets/pages/css/profile.min.css" rel="stylesheet" type="text/css" />
+       
 
          <link href="{{asset('admin_asset/assets/layouts/layout4/css/themes/default.min.css')}}" rel="stylesheet" type="text/css" id="style_color" />
 
@@ -49,9 +48,14 @@
           <link href="{{asset('admin_asset/assets/global/plugins/select2/css/select2-bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
         <link href="admin_asset/assets/global/plugins/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet" type="text/css" />
         <link href="admin_asset/assets/global/plugins/jquery-multi-select/css/multi-select.css" rel="stylesheet" type="text/css" />
+          <link href="admin_asset/assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" rel="stylesheet" type="text/css" />
+        <link href="admin_asset/assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" />
+        <link href="admin_asset/assets/global/plugins/fancybox/source/jquery.fancybox.css" rel="stylesheet" type="text/css" />
+        <link hrel="css/jquery.Jcrop.css" rel="stylesheet" type="text/css">
+
         <!-- END PAGE LEVEL PLUGINS -->
         <link rel="shortcut icon" href="favicon.ico" /> 
-            <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
-                <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.js"></script>
-            @yield('scripthead');
+        <link  rel="stylesheet"  href="admin_asset/assets/global/css/jquery.Jcrop.min.css"  type="text/css">
+        <link  rel="stylesheet"  href="admin_asset/assets/global/css/mystyle.css"  type="text/css">
+            {{-- @yield('scripthead'); --}}
         </head>
