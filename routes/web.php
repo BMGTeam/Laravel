@@ -62,6 +62,7 @@ Route::group(['prefix'=>'admin', 'middleware'=>'adminlogin'], function(){
 	});
 		Route::group(['prefix'=>'ctdh'], function(){
 		Route::get('danhsach', 'ctdhcontroller@xuat');
+		Route::get('danhsachctdh/{id}', 'ctdhcontroller@chitiet');
 		Route::get('them', 'ctdhgcontroller@themsuaxoa');
 		Route::post('postthemsuaxoa', 'ctdhcontroller@postthemsuaxoa');
 		Route::get('chitietdonhang/{id}', 'ctdhcontroller@chitietdonhang');
@@ -95,6 +96,14 @@ Route::group(['prefix'=>'admin', 'middleware'=>'adminlogin'], function(){
 
 	
 	});
+
+});
+
+
+Route::get('testlayout', function () {
+    return view('frontend.layouts.index');
+});
+Route::group(['prefix'=>'customer', 'middleware'=>'customerlogin'], function(){
 
 });
 

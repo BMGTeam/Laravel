@@ -159,32 +159,42 @@ public function viewHinh($id)
    $hinh = sanpham_image::where('id_sanpham', $id)->get();
   return view('admin.sanpham.hinhanh', ['sanpham'=>$sanpham,'tensanpham'=>$tensanpham,'id_sanpham'=>$id, 'hinh'=>$hinh]);
 }
-public function themhinh(Request $rs)
-{
-        
-          $err=array();
-           $file = $rs->file('image');
-            $filename = $file->getClientOriginalName('image');
-         if($file->getMimeType()!= 'image/jpeg' && $file->getMimeType()!='image/png' && $file->getMimeType()!="image/jpg"&& $file->getMimeType()!="image/gif")
-                 $err[] = "loidinhdang";
-          if( $file->getSize() > 8000000)
-                $err[] = "loisize";
-         if(file_exists('img/sanpham/anh/'.$filename))
-              $err[] = "trunghinh";
-      if(empty($err))
-        {
-           echo 'hihi';
-          $file->move('img/sanpham/anh/', $filename);
-          $sanpham_img = new sanpham_image();
-         $sanpham_img->anh = $filename;
-          $sanpham_img->id_sanpham = $rs['id_sanpham'];
-          $sanpham_img->save();
-        return view('admin.sanpham.jcrop',  ['image' => $filename]);
-          // echo '<script type="text/javascript">window.top.window.show_popup_crop("'.$photo_dest.'")</script>';
-          return $filename;
-       } 
-          else
-            return redirect('admin/sanpham/hinhanh/'. $rs->id_sanpham)->with('thongbao', 'Hình ảnh không hợp lệ');
+public function themhinh(Request $rs )
+{    
+     if($rs->hasFile('image'))
+        echo "ahihi";
+        else echo "hichic";
+          // if(Request::file('image'))
+          // {
+          //   echo "hihi";
+          // }
+          // $input['file'] = Request::file('image');
+          // echo 
+          // $file = $rs->file('image');
+        //    $rules = ['file' => 'mimes:jpg,png,gif,jpeg'];
+        //    $validator = Validator::make(
+        //     $file,
+        //     $rules
+        // );
+        // if ($validator->fails())
+        //     return 'false';
+        // else{
+               // $filename = $file->getClientOriginalName('image');
+        //       $file->move('img/sanpham/anh/', $filename);
+        //      //  $sanpham_img = new sanpham_image();
+        //      // $sanpham_img->anh = $filename;
+        //      //  $sanpham_img->id_sanpham = $rs['id_sanpham'];
+        //      //  $sanpham_img->save(); 
+               // echo $filename;
+        // }
+          
+           
+       //  // return view('admin.sanpham.jcrop',  ['image' => $filename]);
+       //    // echo '<script type="text/javascript">window.top.window.show_popup_crop("'.$photo_dest.'")</script>';
+          
+       // } 
+       //    else
+       //      return redirect('admin/sanpham/hinhanh/'. $rs->id_sanpham)->with('thongbao', 'Hình ảnh không hợp lệ');
   
 }
 public function cropImage(request $rs)

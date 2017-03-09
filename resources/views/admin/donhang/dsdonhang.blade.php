@@ -87,7 +87,6 @@
                <div class="pull-right">
               <div class = "btn btn-circle btn-icon-only btn-default" onclick="removeform()">
               <i class = "glyphicon glyphicon-plus"></i></div>
-                   <a id = 'hinh' class = "btn btn-circle btn-icon-only btn-default"><i class = "glyphicon glyphicon-picture"></i></a>
                    </div>
                 <div class="caption">
                 <i class = icon-pencil></i> <span class="caption-subject bold uppercase">Chi tiết đơn hàng</span>
