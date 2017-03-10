@@ -10,10 +10,12 @@
 <!--Custom-Theme-files-->
 <!--theme-style-->
 <link href="customer_asset/css/style.css" rel="stylesheet" type="text/css" media="all" />	
+<link href="customer_asset/css/mystyle.css" rel="stylesheet" type="text/css" media="all" />	
+
 <!--//theme-style-->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="keywords" content="mỹ phẩm thiên nhiên, my pham thien nhien, my pham handmade, son handmade, bot tri mun, bột trà xanh, cung cấp mỹ phẩm giá sỉ, đại lý mỹ phẩm thiên nhiên, đại lý mỹ phẩm gia lai, mỹ phẩm chất lượng tại gia lai, mỹ phẩm handmade, son dưỡng chất lượng cao, son không chì gia lai, mỹ phẩm giao hàng toàn quốc, mỹ phẩm hàng ngày, kem tắm trắng, kem dưỡng ẩm gia lai, kem dưỡng thiên nhiên " />
+<meta name="keywords" content="điện thoại chính hãng, thu mua điện cũ giá cao, điện thoại giá rẻ, công ty phân phối sỉ lẻ hàng công nghệ,phụ kiện chính hãng, phụ kiện giá rẻ, thông tin kĩ thuật điện thoại " />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!--start-menu-->
 <script src="customer_asset/js/simpleCart.min.js"> </script>

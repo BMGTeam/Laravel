@@ -1,7 +1,8 @@
 @extends('frontend.layouts.master')
 @section('content')
-
-	<div class="bnr" id="home">
+ <div class="row">
+ 	<div class="col-md-6" style="padding:0 20px;">
+ 			<div class="bnr" id="home" style="width: 100%; margin: 15px;">
 		<div  id="top" class="callbacks_container">
 			<ul class="rslides" id="slider4">
 			    <li>
@@ -17,6 +18,23 @@
 		</div>
 		<div class="clearfix"> </div>
 	</div>
+ 	</div>
+ 	<div class="col-md-6" style="padding: 0 25px;">
+ 		<div> 
+ 		<a href="#" class="btn btn-black pull-right" style="margin:0 15px;">Xem thêm</a>
+ 		<h4 class="mylabel">Tin tức mới</h4>
+ 		</div>
+ 				<div class="row">
+ 					<div class="col-md-8">
+						<a href="#">Sản phẩm mới phát hành</a>
+					</div>
+ 					<div class="col-md-3">
+ 					<img src="customer_asset/images/cat.png" class="img-responsive" width="100%" height="70"/>
+ 				    </div> 
+					</div>
+		</div>
+		</div>
+
 	<!--banner-ends--> 
 
 	<!--about-starts-->
