@@ -51,11 +51,13 @@
           <link href="admin_asset/assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" rel="stylesheet" type="text/css" />
         <link href="admin_asset/assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" />
         <link href="admin_asset/assets/global/plugins/fancybox/source/jquery.fancybox.css" rel="stylesheet" type="text/css" />
-        <link hrel="css/jquery.Jcrop.css" rel="stylesheet" type="text/css">
-
-        <!-- END PAGE LEVEL PLUGINS -->
+         <!-- END PAGE LEVEL PLUGINS -->
+       
         <link rel="shortcut icon" href="favicon.ico" /> 
-        <link  rel="stylesheet"  href="admin_asset/assets/global/css/jquery.Jcrop.min.css"  type="text/css">
+        
         <link  rel="stylesheet"  href="admin_asset/assets/global/css/mystyle.css"  type="text/css">
+        <script src="admin_asset/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+        <script src="admin_asset/assets/global/scripts/jquery.Jcrop.min.js" type="text/javascript"></script>
             
+
         </head>

@@ -227,4 +227,11 @@ public function editprofile(Request $rs)
        $user->save();
        return redirect('admin/user/profile')->with('thanhcong3', 'sửa thông tin thành công');
 }
+public function xoatatca()
+{
+   DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+    $user = user::truncate();
+    DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+    
+}
 }

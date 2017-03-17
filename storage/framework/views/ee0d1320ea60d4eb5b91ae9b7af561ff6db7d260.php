@@ -1,3 +1,6 @@
+<?php $__env->startSection('scripthead'); ?>
+
+<?php $__env->stopSection(); ?>
  <?php $__env->startSection('noidung'); ?>
  <div class="card-content table-responsive">
  
@@ -61,8 +64,6 @@
                        <div class = 'col-md-8' style="padding: 0; margin:0;"> 
                       <div class="btn blue btn-outline btn-circle btn-sm pull-right ct" value='<?php echo e($value->id); ?>'>chi tiết <span class="fa fa-angle-right"></span></div>
                        <div class = 'key' style = "color: black">
-                    
-                              
                          <span style =" color: blue; font-size: 15px"><b>Tên sản phẩm: <?php echo e($value->TenSanPham); ?></b></span> <br>
                       Mã Sản Phẩm:  <?php echo e($value->MaSanPham); ?> <br>
                       Loại sản phẩm:  <?php $ten_tinh_trang = App\loaisanpham::find($value->MaLoaiSP);
@@ -75,6 +76,11 @@
                       echo $ten_tinh_trang->TenTT;
                     ?><br>
                      Số lượng hiện có: <?php echo e($value->SoLuongHienCo); ?><br>
+                      Nước sản xuất:<?php
+                      $ten_nuoc = App\quocgia::find($value->id_nuocsx);
+                      echo $ten_nuoc->tennuoc;
+                    ?><br>
+                    Xếp hạng:<?php echo e($value->xephang); ?><br>
                          </div>
                          </div>
              
@@ -223,6 +229,33 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label class="control-label col-md-4">Xuất xứ
+                            </label>
+                            <div class="col-md-8">
+                              <select class="form-control select2" id="single" name="xuatxu" id='xuatxu' style="width:70%;">
+                                                 <?php $__currentLoopData = $nuocsx; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $tl): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                               <option value="<?php echo e($tl->id); ?>"><?php echo e($tl->tennuoc); ?></option>
+                                                   <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                     
+                                        </select>
+              
+                            </div>
+                        </div>
+                          <div class="form-group">
+                            <label class="control-label col-md-4">Xếp hạng
+                            </label>
+                            <div class="col-md-8">
+                      
+                                    <select class="form-control" name="xephang" id="xephang">
+                                    <?php for($i=0; $i<10; $i++): ?>
+                                          <option value="<?php echo e($i); ?>"><?php echo e($i); ?></option>
+                                    <?php endfor; ?>
+                                
+                                 
+                                    </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label class="control-label col-md-4">Parent
                                <span class="required"> * </span>
                             </label>
@@ -238,8 +271,6 @@
                             </div>
                         </div>
      
-         
-   
                               </div>
                               
                               
@@ -255,7 +286,6 @@
                       <span class="fileinput-new"> Select image </span>
                       <span class="fileinput-exists" > Change </span>
                       <input type="file" name="image" id="image"> </span>
-    
                   <a href="javascript:;" class="btn default fileinput-exists" data-dismiss="fileinput"> Remove </a>
               </div>
           </div>
@@ -326,7 +356,8 @@
           soluong:{
              required: true,
             number: true
-          }
+          },
+         
         },
         messages: {
           // fullname: {
@@ -358,6 +389,8 @@ $(document).ready(function() {
                  $('#tinhtrang').val(js1.id_TinhTrang);
                   $('#ngaynhap').val(js1.NgayNhap);
                 $('#soluong').val(js1.SoLuongHienCo);
+                 $('#xuatxu').val(js1.id_nuocsx);
+                 $('#xephang').val(js1.xephang);
                 if(js1.AnhDaiDien != null)
                    $('#img').attr('src', 'img/sanpham/anhdaidien/'+js1.AnhDaiDien);
             if(js1.AnhDaiDien== null || js1.AnhDaiDien == "")
@@ -443,6 +476,8 @@ $(document).ready(function() {
                 $('#giavon').val(null);
                 $('#giaban').val(null);
                  $('#tinhtrang').val(null);
+                 $('#xuatxu').val(null);
+                  $('#xephang').val(null);
                 $('#ngaynhap').val('<?php echo date('Y-m-d');?>');
                  $('#img').attr('src', 'img/profile/noimg.jpg');
           $('#id').val(null);

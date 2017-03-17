@@ -1,29 +1,17 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 use App\sanpham;
 use App\loaisanpham;
-
+Route::get('chitietsp/{id}', "trangchucontroller@chitiet");
 Route::get('testhihi', function () {
     return view('admin.test');
 });
+Route::get('testHinh', 'sanphamcontroller@getHinh');
 Route::get('fc', 'usercontroller@getFile');
-
 Route::get('testform', function () {
     return view('admin.user.test');
 });
-
 Route::get('test', 'sanphamcontroller@test');
-
 Route::get('tenkhongdau/{ten}','sanphamcontroller@tenkhongdau');
 Route::get('admin/login', 'usercontroller@getloginadmin');
 Route::post('admin/login', 'usercontroller@postloginadmin');
@@ -42,8 +30,7 @@ Route::group(['prefix'=>'admin', 'middleware'=>'adminlogin'], function(){
 		Route::post('themhinh', 'sanphamcontroller@themhinh');
 		Route::get('xoanhieumuc', 'sanphamcontroller@xoanhieumuc');
 		Route::get('xoatatca', 'sanphamcontroller@xoatatca');
-		Route::get('xoahinh/{id}/{idImg}', 'sanphamcontroller@DeleteDetailImage');
-		Route::post('jcrop','sanphamcontroller@cropImage');
+
 	});
 		Route::group(['prefix'=>'loaisanpham'], function(){
 		Route::get('danhsach', 'loaisanphamcontroller@xuat');
@@ -62,12 +49,10 @@ Route::group(['prefix'=>'admin', 'middleware'=>'adminlogin'], function(){
 	});
 		Route::group(['prefix'=>'ctdh'], function(){
 		Route::get('danhsach', 'ctdhcontroller@xuat');
-		Route::get('danhsachctdh/{id}', 'ctdhcontroller@chitiet');
 		Route::get('them', 'ctdhgcontroller@themsuaxoa');
 		Route::post('postthemsuaxoa', 'ctdhcontroller@postthemsuaxoa');
 		Route::get('chitietdonhang/{id}', 'ctdhcontroller@chitietdonhang');
 		Route::get('xoanhieumuc', 'donhangcontroller@xoanhieumuc');
-
 		Route::get('xoatatca', 'donhangcontroller@xoatatca');
 	});
 		Route::group(['prefix'=>'khachhang'], function(){
@@ -93,19 +78,13 @@ Route::group(['prefix'=>'admin', 'middleware'=>'adminlogin'], function(){
 		Route::get('checkuser/{name}', 'usercontroller@checkuser');
 		Route::get('chitietuser/{id}', 'usercontroller@chitietuser');
 		Route::post('editprofile', 'usercontroller@editprofile');
-
 	
 	});
-
 });
+Route::get('home', "trangchucontroller@xuat");
+Route::get('home1/{id}', "trangchucontroller@chitietsp");
 
 
-Route::get('testlayout', function () {
-    return view('frontend.layouts.index');
-});
-Route::group(['prefix'=>'customer', 'middleware'=>'customerlogin'], function(){
-
-});
 
 
 

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Mỹ Phẩm Gia Lai</title>
+<title>Thiết bị điện tử</title>
 <link href="customer_asset/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
 <!--jQuery(necessary for Bootstrap's JavaScript plugins)-->
 <script src="customer_asset/js/jquery-1.11.0.min.js"></script>

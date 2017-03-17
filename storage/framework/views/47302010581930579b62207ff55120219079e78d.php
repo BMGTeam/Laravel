@@ -53,8 +53,9 @@
 						<input type="submit" value="Subscribe">
 					</form>
 				</div>
-				<div class="col-md-6 footer-right">					
-					<p>© 2017 Mỹ phẩm thiên nhiên | Design by Đức Thụ + Mỹ Thương</p>
+				<div class="col-md-6 footer-right">	
+						
+					<p>© <?php echo getdate()['year'];?> Thiết bị điện tử | Design by Đức Thụ + Mỹ Thương</p>
 				</div>
 				<div class="clearfix"></div>
 			</div>

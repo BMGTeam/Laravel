@@ -12,9 +12,17 @@ class sanpham extends Model
     {
     	return $this->belongsTo('App\LoaiSanPham', 'MaLoaiSP', 'id');
     }
- 
-     public function hinh()
+        public function nuocsx()
     {
-    	return $this->hasMany('App\SanPham_img', 'id_sanpham', 'id');
+        return $this->belongsTo('App\quocgia');
+    }
+ 
+     public function getHinh()
+    {
+    	return $this->hasMany('App\SanPham_image', 'id_sanpham', 'id');
+    }
+     public function getkhuyenmai()
+    {
+        return $this->hasMany('App\ctkhuyenmai', 'id_sanpham', 'id');
     }
 }

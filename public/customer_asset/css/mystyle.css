@@ -8,7 +8,7 @@
     display: inline-block;
 }
 .btn-black:hover{
-	background: yellow;
+	background: #81bbf4;
 	transition: 0.5s all;
 }
 .btn-white{
@@ -20,4 +20,20 @@
 	color: #000;
 	text-transform: uppercase;
 	font-weight: bold;
+}
+.news{
+	border-bottom: 1px solid #ddd;
+	background: #f9f7f7;
+}
+.row{
+	 margin: 0px !important;
+	 padding: 2px;
+}
+.img-news{
+	margin: 0 2px; 
+   width: 100px;
+   height:55px;
+   overflow: hidden;
+   display: inline-block;
+
 }

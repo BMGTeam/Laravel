@@ -1,13 +1,18 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\sanpham;
 use App\tinhtrang;
 use App\loaisanpham;
 use App\sanpham_image;
+use App\quocgia;
+use \Validator;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Validation\Rule;
 use File;
+use Illuminate\Support\Fluent;
+use Illuminate\Support\Facades\DB;
 class sanphamcontroller extends Controller
 {
 	public function tenkhongdau($str)
@@ -20,7 +25,8 @@ class sanphamcontroller extends Controller
     	$sanpham = sanpham::paginate(4);
     	$tinhtrang = tinhtrang::all();
     	$loaisanpham = loaisanpham::all();
-    	return view('admin.sanpham.dssanpham', ['sanpham' => $sanpham, 'tinhtrang'=>$tinhtrang, 'loaisanpham'=>$loaisanpham]);
+      $nuocsx= quocgia::all();
+    	return view('admin.sanpham.dssanpham', ['sanpham' => $sanpham, 'tinhtrang'=>$tinhtrang, 'loaisanpham'=>$loaisanpham, 'nuocsx'=>$nuocsx]);
     }
 
     public function postthemsuaxoa(Request $rs)
@@ -40,6 +46,8 @@ class sanphamcontroller extends Controller
        $sanpham->GiaBan = $rs['giaban'];
        $sanpham->NgayNhap = $rs->ngaynhap;
        $sanpham->SoLuongHienCo= $rs->soluong;
+       $sanpham->id_nuocsx= $rs->xuatxu;
+        $sanpham->xephang= $rs->xephang;
          if($rs->hasFile('image'))
          {
            $err=array();
@@ -62,8 +70,6 @@ class sanphamcontroller extends Controller
           else
             return redirect('admin/sanpham/danhsach?page='.$rs['page'])->with('thanhcong', 'Thêm thông tin thành công nhưng Hình ảnh không hợp lệ');
         }
-
-
       else if($rs['submit'] == "sua")
       {     
 
@@ -79,6 +85,8 @@ class sanphamcontroller extends Controller
        $sanpham->GiaBan = $rs['giaban'];
        $sanpham->NgayNhap = $rs->ngaynhap;
        $sanpham->SoLuongHienCo= $rs->soluong;
+        $sanpham->id_nuocsx= $rs->xuatxu;
+        $sanpham->xephang= $rs->xephang;
         if($rs->hasFile('image'))
          {
           $err=array();
@@ -155,48 +163,53 @@ public function xoanhieumuc()
 public function viewHinh($id)
 {
    $sanpham = sanpham::all();
-   $tensanpham = sanpham::where('id', $id)->get();
+   $tensanpham = sanpham::where('id', $id)->select('TenSanPham')->get();
    $hinh = sanpham_image::where('id_sanpham', $id)->get();
   return view('admin.sanpham.hinhanh', ['sanpham'=>$sanpham,'tensanpham'=>$tensanpham,'id_sanpham'=>$id, 'hinh'=>$hinh]);
 }
 public function themhinh(Request $rs )
-{    
-     if($rs->hasFile('image'))
-        echo "ahihi";
-        else echo "hichic";
-          // if(Request::file('image'))
-          // {
-          //   echo "hihi";
-          // }
-          // $input['file'] = Request::file('image');
-          // echo 
-          // $file = $rs->file('image');
+{           
+           $file = $rs->file('image_detail');
+           $filename = $file->getClientOriginalName('image_detail');
         //    $rules = ['file' => 'mimes:jpg,png,gif,jpeg'];
-        //    $validator = Validator::make(
-        //     $file,
+        //    $validator = Validator::make($file,
         //     $rules
         // );
         // if ($validator->fails())
-        //     return 'false';
+        //     return redirect('admin/sanpham/hinhanh/'. $rs->id_sanpham)->with('thongbao', 'Hình ảnh không hợp lệ');
         // else{
-               // $filename = $file->getClientOriginalName('image');
-        //       $file->move('img/sanpham/anh/', $filename);
-        //      //  $sanpham_img = new sanpham_image();
-        //      // $sanpham_img->anh = $filename;
-        //      //  $sanpham_img->id_sanpham = $rs['id_sanpham'];
-        //      //  $sanpham_img->save(); 
-               // echo $filename;
-        // }
-          
+          $err=array();
+          if($file->getMimeType()!= 'image/jpeg' && $file->getMimeType()!='image/png' && $file->getMimeType()!="image/jpg"&& $file->getMimeType()!="image/gif")
+                 $err[] = "loidinhdang";
            
-       //  // return view('admin.sanpham.jcrop',  ['image' => $filename]);
-       //    // echo '<script type="text/javascript">window.top.window.show_popup_crop("'.$photo_dest.'")</script>';
+              if( $file->getSize() > 8000000)
+                   $err[] = "loisize";
+              if(file_exists('img/sanpham/anh/'.$filename))
+                 $err[] = "trungten";
+              if(empty($err))
+                {
+           
+              $file->move('img/sanpham/anh/', $filename);
+              $sanpham_img = new sanpham_image();
+             $sanpham_img->anh = $filename;
+              $sanpham_img->id_sanpham = $rs['id_sanpham'];
+              $sanpham_img->save();
+              echo $filename;
+               return redirect('admin/sanpham/hinhanh/'. $rs->id_sanpham)->with('thanhcong','Thêm thành công');
+             }
+             else 
+               return redirect('admin/sanpham/hinhanh/'. $rs->id_sanpham)->with('err',$err);
+      
+        // } 
+        // return view('admin.sanpham.jcrop',  ['image' => $filename]);
+          // echo '<script type="text/javascript">window.top.window.show_popup_crop("'.$photo_dest.'")</script>';
           
        // } 
-       //    else
-       //      return redirect('admin/sanpham/hinhanh/'. $rs->id_sanpham)->with('thongbao', 'Hình ảnh không hợp lệ');
+          // else
+            
   
 }
+
 public function cropImage(request $rs)
 {
    $quality = 90;
@@ -212,8 +225,9 @@ public function cropImage(request $rs)
 }
 public function DeleteDetailImage($id, $idImg)
 {
-
-         $hinhanh= sanpham_image::destroy($idImg);
+         $hinhanh = sanpham_image::find($idImg);
+         File::delete("img/sanpham/anh/".$hinhanh->anh);
+          $hinhanh->destroy($idImg);
           return redirect('admin/sanpham/hinhanh/'.$id)->with('thanhcong', 'Xóa thành công');
 }
 public function test()
@@ -224,5 +238,19 @@ public function test()
    echo $id->TenSanPham;
 
 }
-
+public function getHinh()
+{
+   $sanpham_img = sanpham::find('1')->getHinh->toJson();
+   echo "<pre>";
+   var_dump($sanpham_img);
+      echo "</pre>";
+}
+public function xoatatca()
+{
+   DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+    $sanpham = sanpham::truncate();
+    DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+    
+}
+// ----------------------------------------------------------------------------------------------frontend------------------
 }

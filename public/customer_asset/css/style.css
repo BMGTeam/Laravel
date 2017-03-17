@@ -1,7 +1,7 @@
 
 body{
 	background:#fff;
-	font-family: 'Lato-Regular';
+	font-family: 'thu2';
 }
 body a{
 	transition: 0.5s all;
@@ -26,7 +26,35 @@ body a{
     font-family: 'BreeSerif-Regular';
     src:url(../fonts/BreeSerif-Regular.ttf) format('truetype');
 }
+@font-face {
+    font-family: 'mythuong';
+    src:url(../fonts/mythuong.ttf) format('truetype');
+}
+@font-face {
+    font-family: 'hihi';
+    src:url(../fonts/hihi.ttf) format('truetype');
+}
+@font-face {
+    font-family: 'thu';
+    src:url(../fonts/thu.ttf) format('truetype');
+}
+@font-face {
+    font-family: 'lato';
+    src:url(../fonts/lato.ttf) format('truetype');
+}
 
+@font-face {
+    font-family: 'lazy';
+    src:url(../fonts/lazy.ttf) format('truetype');
+}
+@font-face {
+    font-family: 'head';
+    src:url(../fonts/head.ttf) format('truetype');
+}
+@font-face {
+    font-family: 'thu2';
+    src:url(../fonts/thu2.ttf) format('truetype');
+}
 /*--starts-logo--*/
 .logo {
     text-align: center;
@@ -37,7 +65,7 @@ body a{
     font-size: 32px;
     color: #000000;
     margin: 0;
-    font-family: 'Times New Roman';
+    font-family: 'head';
     text-transform: uppercase;
 	display: inline-block;
 }
@@ -979,7 +1007,7 @@ a.mask {
 	text-transform: uppercase;
 	margin-bottom: 0;
 	font-size:16px;
-	font-family: 'Lora-Regular';
+	font-family: 'thu2';
 }
 .sky-form section {
 	margin-bottom: 20px;
@@ -1338,7 +1366,7 @@ a.mask {
 	padding: 15px 10px;
 	outline: none;
 	border: 1px solid #000;
-	font-family: 'Lato-Regular';
+	font-family: 'thu2';
 }
 .contact-right textarea {
 	width: 100%;
@@ -1350,7 +1378,7 @@ a.mask {
 	outline: none;
 	border: 1px solid #000;
 	margin-top: 1.4%;
-	font-family: 'Lato-Regular';
+	font-family: 'thu2';
 }
 .submit-btn input[type=submit] {
 	color: #000;
@@ -1360,7 +1388,7 @@ a.mask {
 	margin: 20px 0 0 0px;
 	border: 1px solid #000;
 	background: none;
-	font-family: 'Lato-Regular';
+	font-family: 'thu2';
 	outline: none;
 }
 .submit-btn input[type=submit]:hover{

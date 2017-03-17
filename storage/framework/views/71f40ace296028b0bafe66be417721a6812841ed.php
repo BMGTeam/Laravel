@@ -1,7 +1,7 @@
 <?php $__env->startSection('content'); ?>
- <div class="row">
- 	<div class="col-md-6" style="padding:0 20px;">
- 			<div class="bnr" id="home" style="width: 100%; margin: 15px;">
+ <div class="row " style="padding:0 20px;" >
+ 	<div class="col-md-6">
+ 			<div class="bnr" id="home" style="width: 100%; margin-top:16px;">
 		<div  id="top" class="callbacks_container">
 			<ul class="rslides" id="slider4">
 			    <li>
@@ -18,19 +18,43 @@
 		<div class="clearfix"> </div>
 	</div>
  	</div>
- 	<div class="col-md-6" style="padding: 0 25px;">
- 		<div> 
- 		<a href="#" class="btn btn-black pull-right" style="margin:0 15px;">Xem thêm</a>
- 		<h4 class="mylabel">Tin tức mới</h4>
- 		</div>
- 				<div class="row">
- 					<div class="col-md-8">
-						<a href="#">Sản phẩm mới phát hành</a>
+ 	<div class="col-md-6" style=>
+ 		<div class="row" style="border-bottom: 1px solid #81bbf4"> 
+ 		 <div class="col-md-9"><h4 class="mylabel">Tin tức mới</h4> </div>
+ 		 <div class="col-md-3"><a href="#" class="btn btn-black pull-right">Xem thêm</a></div>
+ 		 </div>
+ 				<div class="news"></div>
+ 				<div class="row news" style="margin-top:10">
+ 					<div class="col-md-9">
+						<a href="#">Iphone giảm giá</a><br>
+							Iphone giảm mạnh vào mùa hè này<br>
+							Thời gian đăng:
 					</div>
  					<div class="col-md-3">
- 					<img src="customer_asset/images/cat.png" class="img-responsive" width="100%" height="70"/>
- 				    </div> 
+ 					<img src="customer_asset/images/ip7.jpg"  class="img-news thumbnail"/>
+ 				    </div>
 					</div>
+					<div class="row news">
+ 					<div class="col-md-9">
+						<a href="#">Samsung tung ra sản phẩm mới</a><br>
+							Samsung tung ra sản phẩm mới<br>
+							Thời gian đăng:
+					</div>
+ 					<div class="col-md-3">
+ 					<img src="customer_asset/images/ip7.jpg" class="img-news thumbnail"/>
+ 				    </div>
+					</div>
+					<div class="row news">
+ 					<div class="col-md-9">
+						<a href="#">Iphone giảm giá</a><br>
+							Iphone giảm mạnh vào mùa hè này<br>
+							Thời gian đăng:
+					</div>
+ 					<div class="col-md-3">
+ 					<img src="customer_asset/images/ip7.jpg"  class=" img-news thumbnail"/>
+ 				    </div>
+					</div>
+
 		</div>
 		</div>
 
@@ -51,7 +75,7 @@
 				</div>
 				<div class="col-md-4 about-left">
 					<figure class="effect-bubba">
-						<img class="img-responsive" src="customer_asset/images//abt-2.jpg" alt=""/>
+						<img class="img-responsive" src="customer_asset/images//abt1.jpg" alt=""/>
 						<figcaption>
 							<h4>Mauris erat augue</h4>
 							<p>In sit amet sapien eros Integer dolore magna aliqua</p>	
@@ -60,7 +84,7 @@
 				</div>
 				<div class="col-md-4 about-left">
 					<figure class="effect-bubba">
-						<img class="img-responsive" src="customer_asset/images//abt-3.jpg" alt=""/>
+						<img class="img-responsive" src="customer_asset/images//abt2.jpg" alt=""/>
 						<figcaption>
 							<h4>Cras elit mauris</h4>
 							<p>In sit amet sapien eros Integer dolore magna aliqua</p>	
@@ -79,7 +103,7 @@
 				<div class="product-one">
 					<div class="col-md-3 product-left">
 						<div class="product-main simpleCart_shelfItem">
-							<a href="single.html" class="mask"><img class="img-responsive zoom-img" src="customer_asset/images//p-1.png" alt="" /></a>
+							<a href="single.html" class="mask"><img class="img-responsive zoom-img" src="customer_asset/images/c1.png" alt="" /></a>
 							<div class="product-bottom">
 								<h3>Smart Watches</h3>
 								<p>Explore Now</p>
@@ -92,7 +116,7 @@
 					</div>
 					<div class="col-md-3 product-left">
 						<div class="product-main simpleCart_shelfItem">
-							<a href="single.html" class="mask"><img class="img-responsive zoom-img" src="customer_asset/images//p-2.png" alt="" /></a>
+							<a href="single.html" class="mask"><img class="img-responsive zoom-img" src="customer_asset/images//c2.png" alt="" /></a>
 							<div class="product-bottom">
 								<h3>Smart Watches</h3>
 								<p>Explore Now</p>
@@ -105,7 +129,7 @@
 					</div>
 					<div class="col-md-3 product-left">
 						<div class="product-main simpleCart_shelfItem">
-							<a href="single.html" class="mask"><img class="img-responsive zoom-img" src="customer_asset/images//p-3.png"  alt="" /></a>
+							<a href="single.html" class="mask"><img class="img-responsive zoom-img" src="customer_asset/images//c3.png"  alt="" /></a>
 							<div class="product-bottom">
 								<h3>Smart Watches</h3>
 								<p>Explore Now</p>
@@ -118,7 +142,7 @@
 					</div>
 					<div class="col-md-3 product-left">
 						<div class="product-main simpleCart_shelfItem">
-							<a href="single.html" class="mask"><img class="img-responsive zoom-img" src="customer_asset/images//p-4.png" alt="" /></a>
+							<a href="single.html" class="mask"><img class="img-responsive zoom-img" src="customer_asset/images//c4.jpg" alt="" /></a>
 							<div class="product-bottom">
 								<h3>Smart Watches</h3>
 								<p>Explore Now</p>
@@ -134,7 +158,7 @@
 				<div class="product-one">
 					<div class="col-md-3 product-left">
 						<div class="product-main simpleCart_shelfItem">
-							<a href="single.html" class="mask"><img class="img-responsive zoom-img" src="customer_asset/images//p-5.png" alt="" /></a>
+							<a href="single.html" class="mask"><img class="img-responsive zoom-img" src="customer_asset/images//c1.png" alt="" /></a>
 							<div class="product-bottom">
 								<h3>Smart Watches</h3>
 								<p>Explore Now</p>
@@ -147,7 +171,7 @@
 					</div>
 					<div class="col-md-3 product-left">
 						<div class="product-main simpleCart_shelfItem">
-							<a href="single.html" class="mask"><img class="img-responsive zoom-img" src="customer_asset/images//p-6.png" alt="" /></a>
+							<a href="single.html" class="mask"><img class="img-responsive zoom-img" src="customer_asset/images//c2.png" alt="" /></a>
 							<div class="product-bottom">
 								<h3>Smart Watches</h3>
 								<p>Explore Now</p>
@@ -160,7 +184,7 @@
 					</div>
 					<div class="col-md-3 product-left">
 						<div class="product-main simpleCart_shelfItem">
-							<a href="single.html" class="mask"><img class="img-responsive zoom-img" src="customer_asset/images//p-7.png" alt="" /></a>
+							<a href="single.html" class="mask"><img class="img-responsive zoom-img" src="customer_asset/images//c5.png" alt="" /></a>
 							<div class="product-bottom">
 								<h3>Smart Watches</h3>
 								<p>Explore Now</p>
@@ -173,7 +197,7 @@
 					</div>
 					<div class="col-md-3 product-left">
 						<div class="product-main simpleCart_shelfItem">
-							<a href="single.html" class="mask"><img class="img-responsive zoom-img" src="customer_asset/images//p-8.png" alt="" /></a>
+							<a href="single.html" class="mask"><img class="img-responsive zoom-img" src="customer_asset/images//c6.jpg" alt="" /></a>
 							<div class="product-bottom">
 								<h3>Smart Watches</h3>
 								<p>Explore Now</p>
