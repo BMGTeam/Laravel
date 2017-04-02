@@ -110,12 +110,11 @@
                 <!--  -->
                 <?php echo $__env->make('admin.check.error', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
                 <?php if(session('thongbao')): ?>
-                  <div class="alert alert-danger" id="fail"><?php echo e(session('thongbao')); ?></div>
+                  <div class="alert alert-danger" id='fail'><?php echo e(session('thongbao')); ?> <button class="close" data-close="alert"></button></div>
                 <?php endif; ?>
-                      <?php if(session('thanhcong')): ?>
-                        <div class="alert alert-success" id='success'><?php echo e(session('thanhcong')); ?></div>
-                        <?php endif; ?>
-      
+                 <?php if(session('thanhcong')): ?>
+                  <div class="alert alert-success" id='success'><?php echo e(session('thanhcong')); ?> <button class="close" data-close="alert"></button></div>
+                  <?php endif; ?>
                 <!-- begin update -->
                 <!-- chia cột -->
                 <div class = "row">
@@ -286,6 +285,9 @@
    // xem chi tiết:
 $(document).ready(function() {
    // alert("hihi");
+
+
+
       $('.ct').click(function()
       {
         var b = $(this).attr('value');
@@ -364,14 +366,6 @@ $(document).ready(function() {
           $('#id').val(null);
            $('#errname').html("");
    }
-
- </script>
-
- <script>
-   $(document).ready(function() {
-      $('#success').slideUp(2000);
-      $('#fail').slideDown(2000);
-   });
 
  </script>
  <script>

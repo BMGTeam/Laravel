@@ -109,12 +109,11 @@
                 <!--  -->
                 @include('admin.check.error')
                 @if(session('thongbao'))
-                  <div class="alert alert-danger" id="fail">{{session('thongbao')}}</div>
+                  <div class="alert alert-danger" id='fail'>{{session('thongbao')}} <button class="close" data-close="alert"></button></div>
                 @endif
-                      @if (session('thanhcong'))
-                        <div class="alert alert-success" id='success'>{{session('thanhcong')}}</div>
-                        @endif
-      
+                 @if (session('thanhcong'))
+                  <div class="alert alert-success" id='success'>{{session('thanhcong')}} <button class="close" data-close="alert"></button></div>
+                  @endif
                 <!-- begin update -->
                 <!-- chia cột -->
                 <div class = "row">
@@ -285,6 +284,9 @@
    // xem chi tiết:
 $(document).ready(function() {
    // alert("hihi");
+
+
+
       $('.ct').click(function()
       {
         var b = $(this).attr('value');
@@ -363,14 +365,6 @@ $(document).ready(function() {
           $('#id').val(null);
            $('#errname').html("");
    }
-
- </script>
-
- <script>
-   $(document).ready(function() {
-      $('#success').slideUp(2000);
-      $('#fail').slideDown(2000);
-   });
 
  </script>
  <script>

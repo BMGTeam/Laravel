@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class ctdh extends Model
 {
  protected $table = "CTDH";
+ public $timestamps = false;
     public function getDonHang()
     {
     	return $this->belongsTo('App\donhang', 'id_DonHang', 'id');

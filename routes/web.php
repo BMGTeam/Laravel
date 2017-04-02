@@ -17,7 +17,6 @@ Route::get('admin/login', 'usercontroller@getloginadmin');
 Route::post('admin/login', 'usercontroller@postloginadmin');
 Route::get('admin/logout', 'usercontroller@logout');
 Route::group(['prefix'=>'admin', 'middleware'=>'adminlogin'], function(){
-
 	Route::group(['prefix'=>'sanpham'], function(){
 		Route::get('danhsach', 'sanphamcontroller@xuat');
 		Route::get('them', 'sanphamcontroller@themsuaxoa');
@@ -30,7 +29,22 @@ Route::group(['prefix'=>'admin', 'middleware'=>'adminlogin'], function(){
 		Route::post('themhinh', 'sanphamcontroller@themhinh');
 		Route::get('xoanhieumuc', 'sanphamcontroller@xoanhieumuc');
 		Route::get('xoatatca', 'sanphamcontroller@xoatatca');
-
+		Route::get('xoahinh/{id}/{id_img}', 'sanphamcontroller@xoahinh');
+		
+	});
+	Route::group(['prefix'=>'sanphamnoibat'], function(){
+		Route::get('sanphamnoibat','sanphamnoibatcontroller@sanphamnoibat');
+		Route::get('slide','sanphamnoibatcontroller@slide');
+		Route::get('news','sanphamnoibatcontroller@news');
+		Route::get('xemchitiet/{id}', 'sanphamnoibatcontroller@xemchitiet');
+		Route::get('chitietsanpham/{id}', 'sanphamnoibatcontroller@chitietsanpham');
+		Route::get('showname/{id}', 'sanphamnoibatcontroller@showname');
+		Route::get('shownameloainoibat/{id}', 'sanphamnoibatcontroller@shownameloainoibat');
+		Route::get('checkmasanpham/{masp}', 'sanphamnoibatcontroller@checkmasanpham');
+		// Route::post('themhinh', 'sanphamnoibatcontroller@themhinh');
+		// Route::get('xoahinh/{id}', 'sanphamnoibatcontroller@xoahinh');
+		Route::get('themsuaxoa', 'sanphamnoibatcontroller@themsuaxoa');
+		Route::post('postthemsuaxoa', 'sanphamnoibatcontroller@postthemsuaxoa');
 	});
 		Route::group(['prefix'=>'loaisanpham'], function(){
 		Route::get('danhsach', 'loaisanphamcontroller@xuat');
@@ -40,20 +54,24 @@ Route::group(['prefix'=>'admin', 'middleware'=>'adminlogin'], function(){
 	});
 		Route::group(['prefix'=>'donhang'], function(){
 		Route::get('danhsach', 'donhangcontroller@xuat');
+		Route::get('ctdh/{id}', 'donhangcontroller@ctdh');
 		Route::get('them', 'donhangcontroller@themsuaxoa');
 		Route::post('postthemsuaxoa', 'donhangcontroller@postthemsuaxoa');
 		Route::get('checkngay/{ngaybatdau}/{ngayketthuc}', 'donhangcontroller@checkngay');
 		Route::get('chitietdonhang/{id}', 'donhangcontroller@chitietdonhang');
 		Route::get('xoanhieumuc', 'donhangcontroller@xoanhieumuc');
 		Route::get('xoatatca', 'donhangcontroller@xoatatca');
+
 	});
 		Route::group(['prefix'=>'ctdh'], function(){
 		Route::get('danhsach', 'ctdhcontroller@xuat');
+		Route::get('xemdonhang/{id_donhang}', 'ctdhcontroller@xemdonhang');
 		Route::get('them', 'ctdhgcontroller@themsuaxoa');
 		Route::post('postthemsuaxoa', 'ctdhcontroller@postthemsuaxoa');
-		Route::get('chitietdonhang/{id}', 'ctdhcontroller@chitietdonhang');
+		Route::get('chitiet/{dh}/{sp}', 'ctdhcontroller@chitiet');
 		Route::get('xoanhieumuc', 'donhangcontroller@xoanhieumuc');
 		Route::get('xoatatca', 'donhangcontroller@xoatatca');
+
 	});
 		Route::group(['prefix'=>'khachhang'], function(){
 		Route::get('danhsach', 'khachhangcontroller@xuat');
@@ -78,11 +96,15 @@ Route::group(['prefix'=>'admin', 'middleware'=>'adminlogin'], function(){
 		Route::get('checkuser/{name}', 'usercontroller@checkuser');
 		Route::get('chitietuser/{id}', 'usercontroller@chitietuser');
 		Route::post('editprofile', 'usercontroller@editprofile');
+		Route::get('xoatatca', 'usercontroller@xoatatca');
 	
 	});
 });
+Route::group(['prefix'=>'home'], function(){
 Route::get('home', "trangchucontroller@xuat");
-Route::get('home1/{id}', "trangchucontroller@chitietsp");
+Route::get('chitietsp/{id}', "trangchucontroller@chitietsp");
+});
+
 
 
 

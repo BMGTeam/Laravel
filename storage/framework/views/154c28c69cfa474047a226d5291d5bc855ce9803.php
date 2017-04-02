@@ -2,10 +2,11 @@
 <html>
 <head>
 <title>Thiết bị điện tử</title>
+ <base href = "<?php echo e(asset('')); ?>">
 <link href="customer_asset/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
 <!--jQuery(necessary for Bootstrap's JavaScript plugins)-->
 <script src="customer_asset/js/jquery-1.11.0.min.js"></script>
- <base href = "<?php echo e(asset('')); ?>">
+
  <link rel="icon" href="customer_asset/images/cat.png" type="image/x-ico" />
 <!--Custom-Theme-files-->
 <!--theme-style-->
@@ -23,7 +24,7 @@
 <script type="text/javascript" src="customer_asset/js/memenu.js"></script>
 <script>$(document).ready(function(){$(".memenu").memenu();});</script>	
 <!--dropdown-->
-<script src="customer_asset/js/jquery.easydropdown.js"></script>			
+<script src="customer_asset/js/jquery.easydropdown.js"></script>
 </head>
 <body> 
 <?php echo $__env->make('frontend.layouts.menu', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

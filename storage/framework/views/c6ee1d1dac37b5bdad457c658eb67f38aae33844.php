@@ -33,9 +33,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="inputs" style="margin-right:0px;">
-                    <a href="/MCC/Merchant_Product/Create" target="newwindow" class="btn btn-default btn-circle btn-outline btn-sm">Tạo</a>
-                </div>
+               
             </div>
             
                     
@@ -48,18 +46,16 @@
                       <div class = 'row'>
                        <div class = 'col-md-8' style="padding: 0; margin:0;"> 
                       <div class="btn blue btn-outline btn-circle btn-sm pull-right ct" value='<?php echo e($value->id); ?>'>chi tiết <span class="fa fa-angle-right"></span></div>
-                       <div class = 'key' style = "color: black">
-                    
-                              
-                         <span style =" color: blue; font-size: 15px"><b>Số đơn hàng: <?php echo e($value->id); ?></b></span> <br>
-                     <span style =" color: green; font-size: 17px"> Mã khách hàng:  <?php echo e($value->id_khachhang); ?> <br></span>
+                       <div class = 'key' style = "color: black">   
+                        <a> <span style ="color: blue; font-size:15px" value='<?php echo e($value->id); ?>' class="ctdh"><b>Số đơn hàng: <?php echo e($value->id); ?></b></span> </a><br>
+                     <span style =" color: green; font-size: 17px"> Mã khách hàng:<?php echo e($value->id_khachhang); ?> <br></span>
                       Tên khách hàng:  <?php $tenkhachhang = App\khachhang::find($value->id_khachhang);
                         echo $tenkhachhang->TenKH; ?> <br>
                       Ngày đặt:<?php echo e($value->ngaydathang); ?> <br>
                       Ngày giao:<?php echo e($value->ngaygiaohang); ?> <br>
-                      Tổng giá trị : <?php echo e($value->tonggiatri); ?><br>
+                      Tổng giá trị :<?php echo e($value->tonggiatri); ?><br>
                        Tình Trạng:<?php
-                      $ten_tinh_trang = App\tinhtrangdonhang::find($value->tinhtrangdonhang);
+                      $ten_tinh_trang = App\tinhtrangdonhang::find($value->id_tinhtrang);
                        echo $ten_tinh_trang->TenTinhTrang;
                     ?><br>
                          </div>
@@ -189,7 +185,7 @@
   <div class="col-md-5">
         Thông tin bổ sung abcd...
         </div>
-                            </div>
+                           </div>
                     
         </div>
 
@@ -212,7 +208,20 @@
             </form>
           
                 </div>
-
+  
+                 <div class="modal fade" id="myModal">
+               <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                             <h4 class="modal-title" id="myModalLabel">Chi tiết đơn hàng</h4>
+                   </div>
+                    <div class="modal-body">
+                  </div>
+</div>
+        </div>
+        </div>
+        
                     </div>
                    </div>
 
@@ -312,13 +321,24 @@ $(document).ready(function() {
 
           });
   });
-
  </script>
-
   <script>
+   $('.ctdh').click(function(){
+     var id = $(this).attr('value'); 
+        $.get(('admin/donhang/ctdh/'+id), function(data){
+   //           // var js = data;
+   //           // var js1 = JSON.parse(js);
+    // $('#soluongctdh').html(js1.SoLuong);
+               // $('#giactdh').html(js1.Gia);
+          $('.modal-body').html(data);
+          $('.modal-title').html('Chi tiết đơn hàng số : '+id);
+         
+          $('#myModal').modal();
+         });
+
+   });
    function removeform()
    {
-  
             $('#id_khachhang').val(null);
               $('#tonggiatri').val(null);
                  $('#tinhtrangdonhang').val(null);
@@ -328,7 +348,8 @@ $(document).ready(function() {
           $('#errdate').html('');
            $('#errdate1').html('');
    }
-
+ 
+       
  </script>
 
  

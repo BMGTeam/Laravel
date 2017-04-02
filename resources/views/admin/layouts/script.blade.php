@@ -47,5 +47,6 @@
         <script src="js/jquery.Jcrop.min.js" type="text/javascript"></script>
         <script src="admin_asset/assets/global/scripts/jquery.validate.js" type="text/javascript"></script>
           <script src="admin_asset/assets/global/scripts/jquery.Jcrop.min.js" type="text/javascript"></script>
+           <script src="admin_asset/assets/global/scripts/myscript.js" type="text/javascript"></script>
            @yield('script')
         

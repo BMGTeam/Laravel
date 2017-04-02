@@ -14,7 +14,7 @@
                     <!-- BEGIN PAGE BASE CONTENT -->
                     <div class="row">
                     
-                        <div class="col-md-5">
+                        <div class="col-md-6">
                 
                             <div class="portlet light">
                            
@@ -25,55 +25,36 @@
                     <span class="caption-subject bold uppercase">thông tin chi tiết đơn hàng </span>
                 </div>
 
-                <div class="inputs">
-                    <div class="portlet-input input-inline input-small">
-                        <div class="input-icon right">
-                            <i class="icon-magnifier"></i>
-                            <input type="text" class="form-control form-control-solid input-circle" onkeyup="Search(this)" placeholder="Tìm...">
-                        </div>
-                    </div>
-                </div>
-                <div class="inputs" style="margin-right:0px;">
-                    <a href="/MCC/Merchant_Product/Create" target="newwindow" class="btn btn-default btn-circle btn-outline btn-sm">Tạo</a>
+                
+                <div class="inputs btn btn-default btn-circle btn-outline btn-sm view_all" style="padding: 5px;">Xem tất cả
+                 
                 </div>
             </div>
             
                     
-                            <div class="col-md-5 col-xs-5">
-                        
-                               <select class="form-control select2" id="sanpham" name="sanpham" style="width:70%;">
-                              
-                                   <?php $__currentLoopData = $sanpham; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $tl): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                    <option value="<?php echo e($tl->id); ?>"><?php echo e($tl->TenSanPham); ?></a></option>
+                               <select class="form-control select2" id="xemdonhang" name="xemdonhang">
+                                <option></option>
+                                   <?php $__currentLoopData = $donhang; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $tl): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <option value="<?php echo e($tl->id); ?>"><?php echo e($tl->id); ?></option>
                                      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                      </select>
-                                    </div>
-
-
-
-
+              <div id="noidung">
                      <?php $__currentLoopData = $ctdh; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>  
                       <div class="portlet-body">
-                               <div class="alert alert-block alert-info fade in">
-                                            
+                          <div class="alert alert-block alert-info fade in">                  
                       <div class="todo-tasklist-item-title" style="padding-bottom:2px;">
                       <div class = 'row'>
                        <div class = 'col-md-8' style="padding: 0; margin:0;"> 
-                      <div class="btn blue btn-outline btn-circle btn-sm pull-right ct" value='<?php echo e($value->id); ?>'>chi tiết <span class="fa fa-angle-right"></span></div>
+                      <div class="btn blue btn-outline btn-circle btn-sm pull-right ct" onclick="xemchitiet(<?php echo e($value->id_donhang); ?>,<?php echo e($value->id_SanPham); ?>)"> chi tiết <span class="fa fa-angle-right"></span> </div>
+                     
                        <div class = 'key' style = "color: black">
-                    
-                              
-                         <span style =" color: blue; font-size: 15px"><b>Số đơn hàng: <?php echo e($value->id); ?></b></span> <br>
-                     <span style =" color: green; font-size: 17px"> Mã khách hàng:  <?php echo e($value->id_khachhang); ?> <br></span>
-                      Tên khách hàng:  <?php $tenkhachhang = App\khachhang::find($value->id_khachhang);
-                        echo $tenkhachhang->TenKH; ?> <br>
-                      Ngày đặt:<?php echo e($value->ngaydathang); ?> <br>
-                      Ngày giao:<?php echo e($value->ngaygiaohang); ?> <br>
-                      Tổng giá trị : <?php echo e($value->tonggiatri); ?><br>
-                       Tình Trạng:<?php
-                      $ten_tinh_trang = App\tinhtrangctdh::find($value->tinhtrangctdh);
-                       echo $ten_tinh_trang->TenTinhTrang;
-                    ?><br>
+                         <span style =" color: blue; font-size: 15px"><b>Số đơn hàng: <?php echo e($value->id_donhang); ?></b></span> <br>
+                     <span style =" color: green; font-size: 17px">sản phẩm: <?php $tensanpham = App\sanpham::find($value->id_SanPham);
+                      echo $tensanpham->TenSanPham; ?> <br> </span>
+                     
+                      Giá : <?php echo e($value->Gia); ?><br>
+                       Số Lượng : <?php echo e($value->SoLuong); ?><br>
+                      
                          </div>
                          </div>
              
@@ -83,16 +64,15 @@
                     
                             </div>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
                     
-
-
               <?php echo $ctdh-> links(); ?>
 
-                    
+                     </div>
                         
                     </div>
             </div>
-                   <div class="col-md-7">
+                   <div class="col-md-6">
                    <div class="portlet light bordered">
                            
             <div class="portlet-title">
@@ -113,25 +93,23 @@
                         <div class="alert alert-success" id='success'><?php echo e(session('thanhcong')); ?><button class="close" data-close="alert"></button></div>
                         <?php endif; ?>
       <div class = "row">
-                <form action="admin/ctdh/postthemsuaxoa" method= "post" id="form_sample_2" class="form-horizontal" enctype="multipart/form-data">
+                <form action="admin/ctdh/postthemsuaxoa" method= "post" id="form" class="form-horizontal" enctype="multipart/form-data">
                <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>"/>
 
                     <div class="form-body">
                         <div class="alert alert-danger display-hide">
-                            <button class="close" data-close="alert"></button> sai thông tin rồi! xem lại nào! </div>
+                            <button class="close" data-close="alert"></button>sai thông tin rồi! xem lại nào! </div>
                     
-                            <div class="row">
-                            
-                              <div class= "col-md-7">
-                                
+                     
                         <div class="form-group margin-top-20">
-                                       <label class="control-label col-md-4">Mã khách hàng
+                                       <label class="control-label col-md-3">Số đơn hàng
                               <span class="required"> * </span>
                                        </label>
                             <div class="col-md-8">
-                                        <select class="form-control select2" id="id_khachhang" name="id_khachhang" style="width:70%;">
-                                                 <?php $__currentLoopData = $khachhang; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $kh): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                               <option value="<?php echo e($kh->id); ?>"><?php echo e($kh->id); ?></option>
+                                        <select class="form-control select2" id="id_donhang" name="id_donhang" >
+                                         
+                                                 <?php $__currentLoopData = $donhang; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $dh): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                               <option value="<?php echo e($dh->id); ?>"><?php echo e($dh->id); ?></option>
                                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                      
                                         </select>
@@ -140,13 +118,12 @@
               
                        
                              <div class="form-group margin-top-20">
-                                       <label class="control-label col-md-4">Tình trạng đơn hàng  <span class="required"> * </span>
-
+                                       <label class="control-label col-md-3">Sản phẩm<span class="required"> * </span>
                                        </label>
                             <div class="col-md-8">
-                                        <select class="form-control select2" id="tinhtrang" name="tinhtrangctdh" style="width:70%;">
-                                                 <?php $__currentLoopData = $tinhtrangctdh; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $tl): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                               <option value="<?php echo e($tl->id); ?>"><?php echo e($tl->TenTinhTrang); ?></option>
+                                        <select class="form-control select2" id="id_sanpham" name="id_sanpham">
+                                                 <?php $__currentLoopData = $sanpham; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $tl): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                               <option value="<?php echo e($tl->id); ?>"><?php echo e($tl->TenSanPham); ?></option>
                                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                      
                                         </select>
@@ -154,53 +131,37 @@
                                   </div>
               
                          <div class="form-group">
-                            <label class="control-label col-md-4">Tổng giá trị
+                            <label class="control-label col-md-3">Giá
                                 <span class="required"> * </span>
                             </label>
                             <div class="col-md-8">
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="tonggiatri" id="tonggiatri"/> </div>
+                                    <input type="text" class="form-control" name="gia" id="gia"/></div>
                             </div>
                         </div>
                       
                            <div class="form-group">
-                            <label class="control-label col-md-4">Ngày đặt hàng
+                            <label class="control-label col-md-3">Số lượng
                                 <span class="required"> * </span>
                             </label>
                             <div class="col-md-8">
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                     <input type='date' class='form-control'  name='ngaydathang' id='ngaydathang' value= '<?php echo date('Y-m-d'); ?>' />
+                                      <input type="text" class="form-control" name="soluong" id="soluong"/>
                                     </div>
                               <span id="errdate1" style="color:red"></span>
                             </div>
-                        </div>
-                         <div class="form-group">
-                            <label class="control-label col-md-4">Ngày giao hàng
-                                <span class="required"> * </span>
-                            </label>
-                            <div class="col-md-8">
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                     <input type='date' class='form-control'  name='ngaygiaohang' id='ngaygiaohang' value='<?php echo date('Y-m-d'); ?>' />
-                                    </div>
-                                     <span id="errdate" style="color:red"></span>
+                        
+                         
                             
-                            </div>
-                        </div>
-                            
-                       
-     
-         
+             
    
-                              </div>
                               
                               
+                  
 
-  <div class="col-md-5">
-        Thông tin bổ sung abcd...
-        </div>
+
                             </div>
                     
         </div>
@@ -240,28 +201,23 @@
    // xem chi tiết:
 $(document).ready(function() {
    // alert("hihi");
-      $('.ct').click(function()
-      {
-        var b = $(this).attr('value');
-      $.get(('admin/ctdh/chitietctdh/'+ b), function(data)
-      {
-         var js = data;
-         var js1 = JSON.parse(js);
-            $('#id_khachhang').val(js1.id_khachhang);
-              $('#tonggiatri').val(js1.tonggiatri);
-                 $('#tinhtrangctdh').val(js1.tinhtrangctdh);
-                  $('#ngaydathang').val(js1.ngaydathang);
-                 $('#ngaygiaohang').val(js1.ngaygiaohang);
-                  $('#id').val(js1.id)
+    
+      // $('.ct').click(function()
+      // {
+      //   var b = $(this).attr('value');
+      //   var a = $('.sp').attr('value');
+      //   alert(b);
+      //   alert(a);
+      //
           
-          // chạy về đầu trang:
-      });
+      //     // chạy về đầu trang:
+      // });
       $("html, body").animate({
             scrollTop: 0,
            }, 600);
           return false;
 
-      });
+      // });
    
  });
  </script>
@@ -285,44 +241,16 @@ $(document).ready(function() {
  </script>
 
   <script>
-  //kiểm tra tên
+// xem đơn hàng:
    $(document).ready(function() {
-      $('#ngaygiaohang').blur(function(){
-          var ngaygiao = $(this).val();
-          var ngaydat =  $('#ngaydathang').val();
-
-          $.get(('admin/ctdh/checkngay/'+ ngaydat + '/' + ngaygiao), function(data)
-          {
-            
-            if(data != 1)
-            {
-              $('#errdate').html("");
-              $('#errdate').html('Ngày giao hàng phải lớn hơn ngày đặt hàng');
-            }
-            else
-               $('#errdate').html("");
-
-          });
-
-        });
-
-       $('#ngaydathang').blur(function(){
-          var ngaydat= $(this).val();
-          var ngaygiao = $('#ngaygiaohang').val();
-          $.get(('admin/ctdh/checkngay/'+ ngaydat + '/' + ngaygiao), function(data)
-          {
-            
-            if(data != 1)
-            {
-              $('#errdate1').html("");
-              $('#errdate1').html('Ngày giao hàng phải lớn hơn ngày đặt hàng');
-            }
-            else
-               $('#errdate1').html("");
-
-          });
-
-          });
+       $('#xemdonhang').change(function(){
+        var b = $(this).val();
+      $.get(('admin/ctdh/xemdonhang/'+ b), function(data)
+      {
+        $('#noidung').html(data);
+      });
+       });
+      
   });
 
  </script>
@@ -331,8 +259,8 @@ $(document).ready(function() {
    function removeform()
    {
   
-            $('#id_khachhang').val(null);
-              $('#tonggiatri').val(null);
+            $('#id_sanpham').val(null);
+              $('#gia').val(null);
                  $('#tinhtrangctdh').val(null);
                   $('#ngaydathang').val('<?php echo date('Y-m-d'); ?>');
                  $('#ngaygiaohang').val('<?php echo date('Y-m-d'); ?>');
@@ -340,11 +268,62 @@ $(document).ready(function() {
           $('#errdate').html('');
            $('#errdate1').html('');
    }
+   var donhang, sanpham;
+   function xemchitiet(donhang,sanpham)
+   {
+    var donhang, sanpham;
+     // alert(donhang);
+     // alert(sanpham);
+      $.get(('admin/ctdh/chitiet/'+ donhang+"/"+sanpham), function(data)
+      {
+      
+         var js = data;
+         var js1 = JSON.parse(js);
+          // $('#id_donhang').val(js1[0].id_donhang);
+           $('#id_donhang').attr('value',js1[0].id_donhang);
+            // $('#id_donhang').html('value',js1[0].id_donhang);
+           $('#id').val(js1[0].id_donhang);
+            $('#id_sanpham').val(js1[0].id_SanPham);
+              $('#gia').val(js1[0].Gia);
+                 $('#soluong').val(js1[0].SoLuong);
+ 
+                });
+   }  
 
  </script>
 
  
-
+ <script>
+    $(document).ready(function(){
+    $('#form').validate({
+        rules: {
+          id_donhang: {
+              required: true,
+            
+          },
+          id_sanpham:{
+             required: true,
+           
+          },
+          gia:{
+              required: true,
+              number: true
+          },
+          soluong:{
+             required: true,
+              number: true
+          },
+        },
+        messages: {
+          // fullname: {
+          //   required: 'Bạn phải nhập tên đầy đủ',
+          //   maxlength: 'Tên không quá 100 kí tự',
+          //   minlength: 'Tên ít nhất 4 kí tự',
+          // },
+        }
+      });
+  });
+ </script>
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('admin.layouts.hihi', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

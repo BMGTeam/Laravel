@@ -23,3 +23,8 @@
 .error{
 	color: red;
 }
+.font-15-blue{
+	color: blue;
+	 font-size: 15px;
+    font-weight: bold;
+  }

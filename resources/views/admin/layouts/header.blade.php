@@ -417,4 +417,4 @@
 
         {{-- ---------------------------------- --}}
         <div class="clearfix"> </div>
-         @include('admin.layouts.nar_bar')
+         @include('admin.layouts.menu')

@@ -8,7 +8,11 @@
   bottom: 60px;
    overflow: hidden;
   color: white;
+  display: none;
  } 
+.image_dt:hover .delete{
+  display: block;
+}
  .anh:hover{
   box-shadow: 3px 3px 10px rgb(119, 124, 124);
   transition: all 0.7s;
@@ -49,7 +53,6 @@
   min-width: 250px;
  height: 100%;
  width: 100%;
-
 }
 /* The Close Button */
 /*  #myModal {
@@ -141,9 +144,8 @@
         <div class="row">
             <?php $__currentLoopData = $hinh; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                   <div class="col-md-3" style= "margin-top:20px">
-                    <div  ><a href="img\sanpham\anh\<?php echo e($value->anh); ?>" class="fancybox-button" data-rel="fancybox-button"><img id="img" class= "anh img-rounded img-responsive " width=100% src="img\sanpham\anh\<?php echo e($value->anh); ?>"></a>  
+                    <div class="image_dt"><a href="img\sanpham\anh\<?php echo e($value->anh); ?>" class="fancybox-button" data-rel="fancybox-button"><img id="img" class= "anh img-rounded img-responsive " width=100% src="img\sanpham\anh\<?php echo e($value->anh); ?>"></a>  
                 <div class="delete" id="delete"> <a  class= "btn" style="color:white" href="admin/sanpham/xoahinh/<?php echo e($id_sanpham); ?>/<?php echo e($value->id); ?>">delete</a>
-             
                     </div>
                    </div>
                    </div>

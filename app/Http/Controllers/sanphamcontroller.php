@@ -48,6 +48,7 @@ class sanphamcontroller extends Controller
        $sanpham->SoLuongHienCo= $rs->soluong;
        $sanpham->id_nuocsx= $rs->xuatxu;
         $sanpham->xephang= $rs->xephang;
+        // $sanpham->sanphamnoibat= $rs->noibat;
          if($rs->hasFile('image'))
          {
            $err=array();
@@ -87,6 +88,7 @@ class sanphamcontroller extends Controller
        $sanpham->SoLuongHienCo= $rs->soluong;
         $sanpham->id_nuocsx= $rs->xuatxu;
         $sanpham->xephang= $rs->xephang;
+          // $sanpham->sanphamnoibat= $rs->noibat;
         if($rs->hasFile('image'))
          {
           $err=array();
@@ -123,14 +125,25 @@ class sanphamcontroller extends Controller
        {
            if($rs->id)
            {
-         $sanpham= sanpham::destroy($rs->id);
-          return redirect('admin/sanpham/danhsach?page='.$rs['page'])->with('thanhcong', 'Xóa thành công');
+
+              $hinhanh = sanpham::find($rs->id);
+              File::delete("img/sanpham/anhdaidien/".$hinhanh->AnhDaiDien);//xóa ảnh đại diện
+
+             $detail= sanpham_image::where('id_sanpham', $rs->id)->get();
+              $noibat = sanphamnoibat::where('id_sanpham', $rs->id)->get();
+                foreach($noibat as $nb)
+                  File::delete("img/sanphamnoibat/".$nb->AnhDaiDien);
+
+             foreach($detail as $vl)
+             {
+                File::delete("img/sanpham/anh/".$vl->anh); //xóa ảnh chi tiết
+             }
+              $hinhanh->destroy($rs->id);
+            return redirect('admin/sanpham/danhsach?page='.$rs['page'])->with('thanhcong', 'Xóa thành công');
            }
          else 
        return redirect('admin/sanpham/danhsach?page='.$rs['page'])->with('thongbao', 'Chưa chọn sản phẩm');
      }
-   
- 
     }
   }
 public function chitietsanpham($id)
@@ -223,13 +236,14 @@ public function cropImage(request $rs)
     imagejpeg($dest, $src, $quality);
     return "<img src='img/sanpham/anh/".$src."'>";
 }
-public function DeleteDetailImage($id, $idImg)
+public function xoahinh($id, $idImg)
 {
          $hinhanh = sanpham_image::find($idImg);
          File::delete("img/sanpham/anh/".$hinhanh->anh);
           $hinhanh->destroy($idImg);
           return redirect('admin/sanpham/hinhanh/'.$id)->with('thanhcong', 'Xóa thành công');
 }
+
 public function test()
 {
    $sanpham = sanpham::all();
@@ -238,6 +252,7 @@ public function test()
    echo $id->TenSanPham;
 
 }
+
 public function getHinh()
 {
    $sanpham_img = sanpham::find('1')->getHinh->toJson();

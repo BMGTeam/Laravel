@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\users;
 use Input;
 use File;
+use Illuminate\Support\Facades\DB;
 class usercontroller extends Controller
 {
     public function getloginadmin()
@@ -101,7 +102,7 @@ public function postthemsua(Request $rs)
         [
         'namsinh.required'=>'Bạn phải chọn năm sinh',
         ]);
-       if($rs->has['id'])
+          if($rs['id'])
            {
        $user= users::find($rs->id);
         $user->email = $rs['email'];
@@ -111,20 +112,14 @@ public function postthemsua(Request $rs)
        $user->gioitinh = $rs->gioitinh;
         if($rs->hasFile('image'))
          {
-          
-           $file = $rs->file('image');
+          $file = $rs->file('image');
         $filename = $rs['name'].'.'.$file->getClientOriginalExtension('image');
-        $result = glob( 'img/profile/*');
-        foreach ($result as $name) {
-          echo $result->getFilename();
-        }
-
-           if(file_exists('img/profile/'.$filename))
-        {
-          File::delete('img/profile/'.$filename);
-        }
-        $user->anh = $filename;
-        $file->move('img/profile', $filename);
+            if(file_exists('img/profile/'.$filename))
+            {
+              File::delete('img/profile/'.$filename);
+            }
+            $user->anh = $filename;
+            $file->move('img/profile', $filename);
       }
         
        $user->save();
@@ -135,9 +130,12 @@ public function postthemsua(Request $rs)
       }
        else if($rs['submit'] ==  "xoa")
        { 
-        if($rs->has['id'])
+        // echo $rs['id'];
+        if($rs['id'])
           {
-         $user= users::destroy($rs->id);
+           $user= users::find($rs->id);
+           File::delete("img/profile".$user->anh);
+           $user->destroy($rs->id);
           return redirect('admin/user/danhsach?page='.$rs['page'])->with('thanhcong', 'Xóa thành công');
         }
         else
@@ -230,7 +228,7 @@ public function editprofile(Request $rs)
 public function xoatatca()
 {
    DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-    $user = user::truncate();
+    $user = users::truncate();
     DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     
 }

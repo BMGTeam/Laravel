@@ -1,5 +1,5 @@
 <?php if(count($errors)>0): ?>
- <div class="alert alert-danger"> <button class="close" data-close="alert"></button>
+ <div class="alert alert-danger"> <button class="close" id="fail" data-close="alert"></button>
  <ul>
   <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
   		

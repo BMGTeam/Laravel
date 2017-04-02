@@ -99,8 +99,8 @@
                                     </a>
                                 </li>
                                 <li class="nav-item  ">
-                                    <a href="javascript:;" class="nav-link ">
-                                        <span class="title">Thông tin khác</span>
+                                    <a href="admin/sanphamnoibat/sanphamnoibat" class="nav-link ">
+                                        <span class="title">Sản phẩm nổi bật</span>
                                     </a>
                                 </li>
 

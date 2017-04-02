@@ -10,8 +10,10 @@
                     <!-- BEGIN PAGE BREADCRUMB -->
                     <ul class="page-breadcrumb breadcrumb">
                         <li>
-                            <a href="index.html">Trang chủ</a>
+                            <a href="index.html">Trang chủ </a>
                           </li>
+                          <li>/danh sách sản phẩm</li>
+                       
                     </ul>
                     <!-- END PAGE BREADCRUMB -->
                     <!-- BEGIN PAGE BASE CONTENT -->
@@ -59,7 +61,6 @@
 
 
 
-
                         </div>
                        <div class = 'col-md-8' style="padding: 0; margin:0;"> 
                       <div class="btn blue btn-outline btn-circle btn-sm pull-right ct" value='<?php echo e($value->id); ?>'>chi tiết <span class="fa fa-angle-right"></span></div>
@@ -81,6 +82,7 @@
                       echo $ten_nuoc->tennuoc;
                     ?><br>
                     Xếp hạng:<?php echo e($value->xephang); ?><br>
+                    
                          </div>
                          </div>
              
@@ -162,7 +164,7 @@
                                          <span class="required"> * </span>
                                        </label>
                             <div class="col-md-8">
-                                        <select class="form-control select2" id="single" name="loaisanpham" style="width:70%;">
+                                        <select class="form-control select2" id="single" name="loaisanpham">
                                                  <?php $__currentLoopData = $loaisanpham; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $tl): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                <option value="<?php echo e($tl->id); ?>"><?php echo e($tl->TenLoai); ?></option>
                                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -232,7 +234,7 @@
                             <label class="control-label col-md-4">Xuất xứ
                             </label>
                             <div class="col-md-8">
-                              <select class="form-control select2" id="single" name="xuatxu" id='xuatxu' style="width:70%;">
+                              <select class="form-control select2" id="xuatxu" name="xuatxu" id='xuatxu' >
                                                  <?php $__currentLoopData = $nuocsx; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $tl): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                <option value="<?php echo e($tl->id); ?>"><?php echo e($tl->tennuoc); ?></option>
                                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -255,6 +257,7 @@
                                     </select>
                             </div>
                         </div>
+                  
                         <div class="form-group">
                             <label class="control-label col-md-4">Parent
                                <span class="required"> * </span>
@@ -325,10 +328,8 @@
 
                    </div>     
                     </div> 
-	                           
                               </div> 	
 
- 
  <?php $__env->stopSection(); ?>
 <?php $__env->startSection('script'); ?>
  <script>
@@ -372,25 +373,38 @@
 <script>
    // xem chi tiết:
 $(document).ready(function() {
-   // alert("hihi");
+   
+
+
       $('.ct').click(function()
       {
+        $('#errname').html('');
+          $('#errmasp').html('');
         var b = $(this).attr('value');
       $.get(('admin/sanpham/chitietsanpham/'+ b), function(data)
       {
          var js = data;
          var js1 = JSON.parse(js);
+         alert(data);
           $('#tensanpham').val(js1.TenSanPham);
             $('#masanpham').val(js1.MaSanPham);
               $('#giavon').val(js1.GiaVon);
                 $('#giaban').val(js1.GiaBan);
-
                 $('#single').val(js1.MaLoaiSP);
                  $('#tinhtrang').val(js1.id_TinhTrang);
                   $('#ngaynhap').val(js1.NgayNhap);
                 $('#soluong').val(js1.SoLuongHienCo);
                  $('#xuatxu').val(js1.id_nuocsx);
                  $('#xephang').val(js1.xephang);
+                  // $('#noibat').val(js1.sanphamnoibat);
+                   // if(js1.sanphamnoibat == 'yes'){
+                   //   $('#co').attr('checked', 'yes');
+                   //     }
+                   //        else
+                   //        {
+                   //            $('#khong').attr('checked', 'yes');
+                   //        }
+
                 if(js1.AnhDaiDien != null)
                    $('#img').attr('src', 'img/sanpham/anhdaidien/'+js1.AnhDaiDien);
             if(js1.AnhDaiDien== null || js1.AnhDaiDien == "")
@@ -469,7 +483,6 @@ $(document).ready(function() {
   <script>
    function removeform()
    {
-  
         $('#tensanpham').val(null);
             $('#masanpham').val(null);
               $('#single').val(null);
@@ -478,8 +491,10 @@ $(document).ready(function() {
                  $('#tinhtrang').val(null);
                  $('#xuatxu').val(null);
                   $('#xephang').val(null);
+                    // $('#noibat').val('no');
                 $('#ngaynhap').val('<?php echo date('Y-m-d');?>');
                  $('#img').attr('src', 'img/profile/noimg.jpg');
+                 $('#khong').attr('checked', 'yes');
           $('#id').val(null);
           $('#errname').html('');
           $('#errmasp').html('');

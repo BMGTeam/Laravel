@@ -22,7 +22,10 @@ class donhangcontroller extends Controller
     	$khachhang = khachhang::all();
     	return view('admin.donhang.dsdonhang', ['khachhang' => $khachhang,'donhang' => $donhang, 'tinhtrangdonhang'=>$tinhtrangdonhang]);
     }
-
+    public function ctdh($id){
+      $ctdh = ctdh::where('id_donhang',$id)->get();
+      return view('admin.donhang.getctdh',['ctdh'=>$ctdh]);
+        }
     public function postthemsuaxoa(Request $rs)
     {
       if($rs->has('submit'))
@@ -43,7 +46,7 @@ class donhangcontroller extends Controller
         $donhang= new donhang();
 
         $donhang->id_khachhang= $rs['id_khachhang'];
-   		$donhang->tinhtrangdonhang= $rs['tinhtrangdonhang'];
+   		$donhang->id_tinhtrang= $rs['tinhtrangdonhang'];
        $donhang->ngaydathang = $rs['ngaydathang'];
        $donhang->ngaygiaohang = $rs['ngaygiaohang'];
         $donhang->tonggiatri = $rs['tonggiatri'];
@@ -64,11 +67,11 @@ class donhangcontroller extends Controller
           'soluong.numeric'=>'Số lượng phải là một số',
            'tonggiatri.numeric'=>'tổng giá trị phải là một số',
         ]);
-           if($rs->has['id'])
+           if($rs->id)
            {
        $donhang= donhang::find($rs->id);
         $donhang->id_khachhang= $rs['id_khachhang'];
-   		$donhang->tinhtrangdonhang= $rs['tinhtrangdonhang'];
+   		$donhang->id_tinhtrang= $rs['tinhtrangdonhang'];
        $donhang->ngaydathang = $rs['ngaydathang'];
        $donhang->ngaygiaohang = $rs['ngaygiaohang'];
         $donhang->tonggiatri = $rs['tonggiatri'];
@@ -82,7 +85,7 @@ class donhangcontroller extends Controller
       }
        else if($rs['submit'] ==  "xoa")
        {
-      		if($rs->has['id'])
+      		if($rs->id)
            {
          $donhang= donhang::destroy($rs->id);
           return redirect('admin/donhang/danhsach?page='.$rs['page'])->with('thanhcong', 'Xóa thành công');
